@@ -20,25 +20,31 @@
 makeDecisionProblem = function(df, state, action, ordered = FALSE) {
   assertDataFrame(df)
   assertCharacter(state, len = 1L)
-
+  assertCharacter(action, len = 1L)
   # get some help elements: col names, classes
   col.names = colnames(df)
   col.classes = getClasses(df)
 
   # sanitize state column
   checkFactorInData(df, state)
-  state.var = df[, state]
-  states = levels(state.var)
+  new.name = "state"
+  names(new.name) = state
+  df = rename(df, new.name)
+  levels(df$state) = 1:length(levels(df$state))
 
   # sanitize action column
   checkFactorInData(df, action)
+  new.name = "action"
+  names(new.name) = action
+  df = rename(df, new.name)
+  levels(df$action) = 1:length(levels(df$action))
 
   # sanitize variable numerical
   num.col = col.names[which.first(col.classes == "numeric")]
   if (length(num.col) == 0L)
     stop("'df' must at least contain one numeric variable!")
 
-  ordinals.df = df[, names(df) %nin%  c(num.col, state, action)]
+  ordinals.df = df[, names(df) %nin%  c(num.col, "state", "action")]
   pref.fac.names = colnames(ordinals.df)
   pref.fac.classes = getClasses(ordinals.df)
 
