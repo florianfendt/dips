@@ -38,7 +38,18 @@ calculatePreferenceSystemConsistency = function(ps) {
   rhos = c(rhos, const.add$rhos)
   const.dir = c(const.dir, const.add$const.dir)
 
-  lp(direction = "max", obj.f, const, const.dir, rhos)
+  linear.program = lp(direction = "max", obj.f, const,
+    const.dir, rhos)
+  opt.val = linear.program$objval
+  if (opt.val > 0) {
+    message(sprintf("Success: The Preference System is consistent,
+      with granularity up to %f", opt.val))
+  }  else {
+    stop("Optimization failed!")
+  }
+  res = makeS3Obj("ConsistenyResult", opt.val = opt.val,
+    opt.vec = linear.program$solution)
+  return(res)
 }
 
 rbindForLists = function(x) {
