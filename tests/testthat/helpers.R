@@ -7,11 +7,12 @@ ratings = data.frame(x = c(2000, 1000, 4000, 3000),
 
 outcomes = data.frame(x = c(500, 270, 350, 240, 240, 100),
   b1 = c(1L, 1L, 1L, 1L, 1L, 1L),
-  b2 = c(1L, 1L, 1L, 1L, 1L, 1L),
-  b3 = c(1L, 0L, 0L, 0L, 0L, 0L),
+  b2 = c(1L, 1L, 0L, 1L, 1L, 1L),
+  b3 = c(1L, 0L, 0L, 0L, 0L, 1L),
   b4 = c(1L, 0L, 1L, 0L, 0L, 0L),
   nature = factor(rep(c(1, 2), 3L)),
   job = factor(c(rep(1, 2), rep(2, 2), rep(3, 2))))
 
-outcomes.unbound = outcomes
-outcomes.unbound[3L, "b2"] = 0
+outcomes.bound = outcomes
+outcomes.bound[3L, c("b2", "b4")] = c(1L, 0L)
+outcomes.bound[4L, "x"] = 100

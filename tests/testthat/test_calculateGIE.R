@@ -1,7 +1,7 @@
 context("calculateGIE")
 
 # setup decision problem and preference system
-dp = makeDecisionProblem(outcomes, "nature", "job")
+dp = makeDecisionProblem(outcomes.bound, "nature", "job")
 ps = makePreferenceSystem(dp)
 deltas = c(0, 0.01)
 p.measures = list(c(0.5, 0.5))
@@ -11,7 +11,7 @@ test_that("check general behaviour", {
     calculateGIE(ps, delta, p.measures, action = 1L)
   })
   # check bound between 0, 1
-  expect(all(as.numeric(gies.1) <= 1 && as.numeric(gies.1) >= 0))
+  expect_true(all(as.numeric(gies.1) <= 1 && as.numeric(gies.1) >= 0))
 
   # check intervals not getting wider with increasing delta
   expect_equal(gies.1[1L, ], sort(gies.1[1L, ]))
@@ -22,7 +22,7 @@ test_that("check general behaviour", {
 test_that("check error messages", {
   # check if throws error when there is no worst or
   # best alternative.
-  dp.unbound = makeDecisionProblem(outcomes.unbound,
+  dp.unbound = makeDecisionProblem(outcomes,
     "nature", "job")
   ps.unbound = makePreferenceSystem(dp.unbound)
   expect_error(calculateGIE(ps.unbound,
