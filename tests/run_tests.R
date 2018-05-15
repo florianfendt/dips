@@ -1,2 +1,2 @@
 library(testthat)
-test_check("PreferenceSystems")
+test_check("dips")

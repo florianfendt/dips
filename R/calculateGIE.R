@@ -1,13 +1,50 @@
 #' @title Construct A Preference System
 #' @description
-#'   Constructs a Preference System from a Decision Problem.
+#'   Calculates the Generalized Interval Expectation for an act,
+#'   on the basis of a consistent Preference System.
 #' @param ps [\code{dp}]\cr
 #'   Decison Problem calculated with \code{\link{makeDecisionProblem}}.
-#' @return [\code{list}] With entries:\cr
-#'   R1: Pre order on the acts.\cr
-#'   R2: Preorder on R1.
+#' @param delta [\code{numeric(1L)}]\cr
+#'   granularity parameter. Must be between 0 and 1
+#' @param p.measures [\code{list}]\cr
+#'   List of probability measures. Each entry must have exactly
+#'   \code{n.state}.\cr
+#'   Where \code{n.state} corresponds to the number
+#'   of levels the variable \code{state} has in the \code{data.frame}
+#'   of the object \code{ps$df}.
+#' @param action [\code{integer}]\cr
+#'   The act that the interval is calculated for.\cr
+#'   Must be one of the levels of the \code{action} variable
+#'   in the \code{data.frame} of the object \code{ps$df}.
+#'
+#' @return [\code{numeric(2L)}]\cr
+#'   Lower and upper bounds of the interval.
 #' @export
-calculateGIE = function(ps, delta, p.measures) {
+calculateGIE = function(ps, delta, p.measures, action) {
+
+  # FIXME: assert S3 Object
+  assertNumeric(delta, len = 1L)
+  assertList(p.measures)
+  # FIXME: A should be renamed
+  df = ps$A
+  n.states = length(levels(df$state))
+  p.measures.length = unique(viapply(p.measures, length))
+  if (length(p.measures.length) != 1L) {
+    stop("Error for variable 'p.measures': \n
+      Measures have different lengths")
+  }
+  if (p.measures.length != n.states) {
+    stop(sprintf("Error for variable 'p.measures': \n
+      Measures should all have length %i", n.states))
+  }
+
+  best.worst = viapply(1:2, function(x) {
+    res = names(which(table(ps$R1[, x]) == nrow(df) - 1L))
+    if (length(res) == 0L) {
+      stop("There is either no best or worse alternative")
+    }
+    as.integer(res)
+  })
 
   I.R1 = getI(ps$R1)
   P.R1 = getP(ps$R1)
@@ -15,10 +52,8 @@ calculateGIE = function(ps, delta, p.measures) {
   I.R2 = getI(ps$R2)
   P.R2 = getP(ps$R2)
 
-
-  obj.f = rep(0, times = nrow(ps$A))
-  n.f = length(obj.f)
-  const = as.data.frame(diag(rep(1, times = length(obj.f))))
+  n.f = nrow(ps$A)
+  const = as.data.frame(diag(rep(1, times = n.f)))
   const = rbind(const, const)
   names(const) = 1:n.f
 
@@ -26,27 +61,36 @@ calculateGIE = function(ps, delta, p.measures) {
 
   const.dir = c(rep("<=", n.f), rep(">=", n.f))
 
-  const.I.R1 = rbindForLists(apply(I.R1, 1L, makeConstraint, n = n.f, type = 1L))
-  const.P.R1 = rbindForLists(apply(P.R1, 1L, makeConstraint, n = n.f, type = 2L))
-  const.I.R2 = rbindForLists(apply(I.R2, 1L, makeConstraint, n = n.f, type = 3L))
-  const.P.R2 = rbindForLists(apply(P.R2, 1L, makeConstraint, n = n.f, type = 4L))
+  const.I.R1 = rbindForLists(apply(I.R1, 1L, makeConstraintGIE, n = n.f,
+    type = 1L, delta = 0))
+  const.P.R1 = rbindForLists(apply(P.R1, 1L, makeConstraintGIE, n = n.f,
+    type = 2L, delta = delta))
+  const.I.R2 = rbindForLists(apply(I.R2, 1L, makeConstraintGIE, n = n.f,
+    type = 3L, delta = 0))
+  const.P.R2 = rbindForLists(apply(P.R2, 1L, makeConstraintGIE, n = n.f,
+    type = 4L, delta = delta))
 
+  const.best =  makeConstraintGIE(best.worst[1L], n.f, 5L, 1)
+  const.worst =  makeConstraintGIE(best.worst[2L], n.f, 6L, 0)
 
-  const.add = rbind(const.I.R1, const.P.R1, const.I.R2, const.P.R2, stringsAsFactors = FALSE)
+  const.add = rbind(const.I.R1, const.P.R1, const.I.R2, const.P.R2, const.best, const.worst,
+    stringsAsFactors = FALSE)
 
   const = rbind(const, const.add[1:n.f])
   rhos = c(rhos, const.add$rhos)
   const.dir = c(const.dir, const.add$const.dir)
 
-  lp(direction = "max", obj.f, const, const.dir, rhos)
-}
+  opt.for.p = vapply(p.measures, function(p) {
+    obj.f = p[ps$A[, "state"]]
+    obj.f[ps$A$action != action] = 0
+    min.opt = lp(direction = "min", obj.f, const,
+      const.dir, rhos)$objval
+    max.opt = lp(direction = "max", obj.f, const,
+      const.dir, rhos)$objval
+    c(min.opt, max.opt)
+  }, numeric(2L))
 
-rbindForLists = function(x) {
-  if (!is.null(x)) {
-    x = do.call("rbind", x)
-  }
-
-  x
+  c(lower.bound = min(opt.for.p[1L, ]), upper.bound = max(opt.for.p[2L, ]))
 }
 
 # FIXME: Maybe refactor together with base function
@@ -82,14 +126,26 @@ makeConstraintGIE = function(indices, n, type, delta) {
           # const[n.const] = 1
           const.dir = "<="
         } else {
-          stop("wrong type")
+          if (type == 5L) {
+            const[indices] = 1
+            const.dir = "="
+            delta = -1
+          } else {
+            if (type == 6L){
+              const[indices] = 1
+              const.dir = "="
+              delta = 0
+            } else {
+              stop("wrong type")
+            }
+          }
         }
       }
     }
   }
   const = as.data.frame(t(const))
   names(const) = 1:length(const)
-  res = cbind(const, data.frame(rhos = delta, const.dir = const.dir,
-    stringsAsFactors = FALSE), stringsAsFactors = FALSE)
+  res = cbind(const, data.frame(rhos = -delta, const.dir = const.dir, stringsAsFactors = FALSE),
+    stringsAsFactors = FALSE)
   res
 }

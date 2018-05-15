@@ -29,7 +29,8 @@ makePreferenceSystem = function(dp) {
 
   # setup R1 already, saves computation time later
   R1 = as.data.frame(which(supersets.cardinals, TRUE))
-  R1 = R1[R1$row != R1$col, ]
+  names(R1) = c("1","2")
+  R1 = R1[R1[, 1L] != R1[, 2L], ]
 
   # now we can directly get the info from R1 for the ordinal case
   supersets.ordinals = apply(R1, 1L, function(pair) {
@@ -39,8 +40,9 @@ makePreferenceSystem = function(dp) {
   rownames(R1) = seq_len(nrow(R1))
 
   R2 = expand.grid.df(R1, R1)[, c(3:4, 1:2)]
+  names(R2) = c("1", "2", "2.1", "2.2")
   # # rm duplicated entries
-  R2 = R2[!((R2$row == R2$row.1) & (R2$col == R2$col.1)), ]
+  R2 = R2[!((R2[, 1L] == R2[, 3L]) & (R2[, 2L] == R2[, 4L])), ]
 
 
   # Setup R2. First for cardinals:

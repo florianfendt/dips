@@ -7,14 +7,12 @@
 getP(x)
 }
 \arguments{
-\item{x}{[\code{matrix}]\cr
-Decison Problem calculated with \code{\link{makeDecisionProblem}}.}
+\item{x}{[\code{matrix}|\code{data.frame}]\cr
+Matrix or data.frame with 2 or 4 columns to work on R1, R2 respectively.}
 }
 \value{
-[\code{list}] With entries:\cr
-  R1: Pre order on the acts.\cr
-  R2: Preorder on R1.
+[\code{data.frame}]\cr
 }
 \description{
-Constructs a Preference System from a Decision Problem.
+Calculates strict part from a \code{matrix} or a \code{data.frame.}
 }
