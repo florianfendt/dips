@@ -31,5 +31,10 @@ test_that("check error messages", {
 
   # check error messages for infeasible probability measures
 
+  # p.measures = list(c(0.5, 0.5, 0.5))
+  # expect_error(calculateGIE(ps.unbound,
+  #   deltas[[1L]], p.measures, action = 1L),
+  # "Error for variable 'p.measures':
+  # Measures should all have length 2")
   # FIXME: add test as well as implement function for it!
 })
