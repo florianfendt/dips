@@ -12,7 +12,7 @@
 #'   Where \code{n.state} corresponds to the number
 #'   of levels the variable \code{state} has in the \code{data.frame}
 #'   of the object \code{ps$df}.
-#' @param action [\code{integer}]\cr
+#' @param action [\code{character}]\cr
 #'   The act that the interval is calculated for.\cr
 #'   Must be one of the levels of the \code{action} variable
 #'   in the \code{data.frame} of the object \code{ps$df}.
@@ -25,19 +25,35 @@ calculateGIE = function(ps, delta, p.measures, action) {
   # FIXME: assert S3 Object
   assertNumeric(delta, len = 1L)
   assertList(p.measures)
+  assertCharacter(action, len = 1L)
   # FIXME: A should be renamed
   df = ps$A
+  # sanitize p.measures
+  # check length
   n.states = length(levels(df$state))
   p.measures.length = unique(viapply(p.measures, length))
   if (length(p.measures.length) != 1L) {
-    stop("Error for variable 'p.measures': \n
+    stop("Error for variable 'p.measures':
       Measures have different lengths")
   }
   if (p.measures.length != n.states) {
-    stop(sprintf("Error for variable 'p.measures': \n
-      Measures should all have length %i", n.states))
+    stop(sprintf("Error for variable 'p.measures': Measures should all have length %i", n.states))
+  }
+  # check that elements of p.measures are true probabilities
+  p.measures.sum = vnapply(p.measures, sum)
+  if (any(p.measures.sum != 1)) {
+    not.ok = which.first(p.measures.sum != 1)
+    stop(sprintf("Error for variable 'p.measures':
+      Measure  %i does not sum to 1" , not.ok))
   }
 
+  # sanitize action
+  all.actions = levels(df$action)
+  if (action %nin% all.actions) {
+    stop(sprintf("%s is not a valid action. It is not a level of the
+      action variable", action))
+  }
+  # check R1 is compact
   best.worst = viapply(1:2, function(x) {
     res = names(which(table(ps$R1[, x]) == nrow(df) - 1L))
     if (length(res) == 0L) {
@@ -46,9 +62,9 @@ calculateGIE = function(ps, delta, p.measures, action) {
     as.integer(res)
   })
 
+  # get strict and indifference parts of R1, R2
   I.R1 = getI(ps$R1)
   P.R1 = getP(ps$R1)
-
   I.R2 = getI(ps$R2)
   P.R2 = getP(ps$R2)
 

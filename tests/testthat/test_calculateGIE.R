@@ -8,7 +8,7 @@ p.measures = list(c(0.5, 0.5))
 
 test_that("check general behaviour", {
   gies.1 = sapply(deltas, function(delta) {
-    calculateGIE(ps, delta, p.measures, action = 1L)
+    calculateGIE(ps, delta, p.measures, action = "1")
   })
   # check bound between 0, 1
   expect_true(all(as.numeric(gies.1) <= 1 && as.numeric(gies.1) >= 0))
@@ -26,15 +26,17 @@ test_that("check error messages", {
     "nature", "job")
   ps.unbound = makePreferenceSystem(dp.unbound)
   expect_error(calculateGIE(ps.unbound,
-    deltas[[1L]], p.measures, action = 1L),
+    deltas[[1L]], p.measures, action = "1"),
     "There is either no best or worse alternative")
 
   # check error messages for infeasible probability measures
-
-  # p.measures = list(c(0.5, 0.5, 0.5))
-  # expect_error(calculateGIE(ps.unbound,
-  #   deltas[[1L]], p.measures, action = 1L),
-  # "Error for variable 'p.measures':
-  # Measures should all have length 2")
-  # FIXME: add test as well as implement function for it!
+  bad.measures = list(c(0.5, 0.5, 0.5))
+  expect_error(calculateGIE(ps, deltas[[1L]], bad.measures, action = "1"),
+    "length")
+  bad.measures = list(c(0.5, 0.5), c(0.8, 0.3))
+  expect_error(calculateGIE(ps, deltas[[1L]], bad.measures, action = "1"),
+    "sum to 1")
+  # check sanity of action variable
+  expect_error(calculateGIE(ps, deltas[[1L]], p.measures,
+    action = "bad action"), "not a valid action")
 })

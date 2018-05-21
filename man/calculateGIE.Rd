@@ -20,7 +20,7 @@ Where \code{n.state} corresponds to the number
 of levels the variable \code{state} has in the \code{data.frame}
 of the object \code{ps$df}.}
 
-\item{action}{[\code{integer}]\cr
+\item{action}{[\code{character}]\cr
 The act that the interval is calculated for.\cr
 Must be one of the levels of the \code{action} variable
 in the \code{data.frame} of the object \code{ps$df}.}
