@@ -3,4 +3,5 @@
 #' @import reshape
 #' @import lpSolve
 #' @import utils
+#' @import ggplot2
 NULL

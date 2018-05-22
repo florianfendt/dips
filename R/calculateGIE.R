@@ -1,4 +1,4 @@
-#' @title Construct A Preference System
+#' @title Calculate Generalized Interval Expectation
 #' @description
 #'   Calculates the Generalized Interval Expectation for an act,
 #'   on the basis of a consistent Preference System.
