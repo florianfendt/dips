@@ -3,6 +3,16 @@
 #'   Constructs a Preference System from a Decision Problem.
 #' @param ps [\code{dp}]\cr
 #'   Decison Problem calculated with \code{\link{makeDecisionProblem}}.
+#' @param p.measures [\code{list}]\cr
+#'   List of probability measures. Each entry must have exactly
+#'   \code{n.state}.\cr
+#'   Where \code{n.state} corresponds to the number
+#'   of levels the variable \code{state} has in the \code{data.frame}
+#'   of the object \code{ps$df}.
+#' @param action [\code{character}]\cr
+#'   The act that the interval is calculated for.\cr
+#'   Must be one of the levels of the \code{action} variable
+#'   in the \code{data.frame} of the object \code{ps$df}.
 #' @return [\code{list}] With entries:\cr
 #'   R1: Pre order on the acts.\cr
 #'   R2: Preorder on R1.
@@ -31,13 +41,15 @@ calculateAAdmissibility = function(ps, action, p.measures) {
   const.I.R2 = rbindForLists(apply(I.R2, 1L, makeConstraint, n = n.f, type = 3L))
   const.P.R2 = rbindForLists(apply(P.R2, 1L, makeConstraint, n = n.f, type = 4L))
 
+  # print(nrow(ps$A))
 
   const.states = vapply(p.measures, function(p) {
     const.state = p[ps$A[, "state"]]
     const.state[ps$A$action != action] = 0
     const.state
   }, numeric(nrow(ps$A)))
-  const.states = as.vector(const.states)
+  # const.states = as.vector(const.states)
+  print(const.states)
 
   acts.other = levels(ps$A[, "action"])[levels(ps$A[, "action"]) != action]
 
@@ -47,15 +59,20 @@ calculateAAdmissibility = function(ps, action, p.measures) {
       const.state[ps$A$action != act] = 0
       const.state
     }, numeric(nrow(ps$A)))
-    - as.vector(one.state)
+    # - as.vector(one.state)
+    t(one.state)
   })
+  print(const.states.other)
 
   const.states.other = rbindForLists(const.states.other)
 
+  print(const.states.other)
   const.states.other = apply(const.states.other, 1L, function(const) {
     c(const + const.states, 0)
   })
+  print(const.states.other)
   const.states.other = as.data.frame(t(const.states.other))
+  print(const.states.other)
   names(const.states.other) = 1:ncol(const.states.other)
   rhos.states = rep(0, times = nrow(const.states.other))
   const.dir.states = rep(">=", times = nrow(const.states.other))
@@ -64,6 +81,7 @@ calculateAAdmissibility = function(ps, action, p.measures) {
   const.add = rbind(const.I.R1, const.P.R1, const.I.R2, const.P.R2,
     stringsAsFactors = FALSE)
 
+  print(const.states.other)
   const = rbind(const, const.add[1:n.f], const.states.other)
   rhos = c(rhos, const.add$rhos, rhos.states)
   const.dir = c(const.dir, const.add$const.dir, const.dir.states)

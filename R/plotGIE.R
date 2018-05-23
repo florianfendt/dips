@@ -34,12 +34,16 @@ plotGIE = function(ps, deltas, p.measures, actions) {
   interval.acts = rename(interval.acts, c(L1 = "granularity",
     X1 = "bound", "X2" = "action"))
   interval.acts$action = as.factor(interval.acts$action)
-  # interval.acts$granularity = as.numeric(interval.acts$granularity)
+  interval.acts$granularity = as.factor(interval.acts$granularity)
+  interval.acts$granularity = factor(interval.acts$granularity,
+    levels(interval.acts$granularity)[order(as.numeric(levels(interval.acts$granularity)))])
+
+  print(str(interval.acts$granularity))
   int.plot = ggplot(interval.acts, aes_string("action", "value",
     # colour = "bound",
     group = "action"))
   int.plot = int.plot + geom_point() + geom_line()
-  int.plot = int.plot + facet_wrap(~ granularity)
+  int.plot = int.plot + facet_wrap(~ granularity, nrow = 1L)
   int.plot = int.plot + scale_y_continuous(limits = c(0,1),
     name = "Generalized Expectation Intervals")
   int.plot = int.plot + theme_light()
