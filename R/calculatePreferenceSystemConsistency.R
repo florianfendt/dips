@@ -18,7 +18,7 @@ calculatePreferenceSystemConsistency = function(ps) {
   P.R2 = getP(ps$R2)
 
 
-  obj.f = c(rep(0, times = nrow(ps$A)), 1)
+  obj.f = c(rep(0, times = nrow(ps$df)), 1)
   n.f = length(obj.f)
   const = as.data.frame(diag(rep(1, times = length(obj.f))))
   const = rbind(const, const)

@@ -27,7 +27,7 @@ calculateAAdmissibility = function(ps, action, p.measures) {
   P.R2 = getP(ps$R2)
 
 
-  obj.f = c(rep(0, times = nrow(ps$A)), 1)
+  obj.f = c(rep(0, times = nrow(ps$df)), 1)
   n.f = length(obj.f)
   const = as.data.frame(diag(rep(1, times = length(obj.f))))
   const = rbind(const, const)
@@ -42,25 +42,24 @@ calculateAAdmissibility = function(ps, action, p.measures) {
   const.I.R2 = rbindForLists(apply(I.R2, 1L, makeConstraint, n = n.f, type = 3L))
   const.P.R2 = rbindForLists(apply(P.R2, 1L, makeConstraint, n = n.f, type = 4L))
 
-  # print(nrow(ps$A))
+  # print(nrow(ps$df))
 
   const.states = vapply(p.measures, function(p) {
-    const.state = p[ps$A[, "state"]]
-    const.state[ps$A$action != action] = 0
+    const.state = p[ps$df[, "state"]]
+    const.state[ps$df$action != action] = 0
     const.state
-  }, numeric(nrow(ps$A)))
+  }, numeric(nrow(ps$df)))
   # const.states = as.vector(const.states)
   print(const.states)
 
-  acts.other = levels(ps$A[, "action"])[levels(ps$A[, "action"]) != action]
+  acts.other = levels(ps$df[, "action"])[levels(ps$df[, "action"]) != action]
 
   const.states.other = lapply(acts.other, function(act) {
     one.state = vapply(p.measures, function(p) {
-      const.state = p[ps$A[, "state"]]
-      const.state[ps$A$action != act] = 0
+      const.state = p[ps$df[, "state"]]
+      const.state[ps$df$action != act] = 0
       const.state
-    }, numeric(nrow(ps$A)))
-    # - as.vector(one.state)
+    }, numeric(nrow(ps$df)))
     t(one.state)
   })
   print(const.states.other)

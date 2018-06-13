@@ -26,8 +26,8 @@ calculateGIE = function(ps, delta, p.measures, action) {
   assertNumeric(delta, len = 1L)
   assertList(p.measures)
   assertCharacter(action, len = 1L)
-  # FIXME: A should be renamed
-  df = ps$A
+
+  df = ps$df
   # sanitize p.measures
   # check length
   n.states = length(levels(df$state))
@@ -68,7 +68,7 @@ calculateGIE = function(ps, delta, p.measures, action) {
   I.R2 = getI(ps$R2)
   P.R2 = getP(ps$R2)
 
-  n.f = nrow(ps$A)
+  n.f = nrow(ps$df)
   const = as.data.frame(diag(rep(1, times = n.f)))
   const = rbind(const, const)
   names(const) = 1:n.f
@@ -97,8 +97,8 @@ calculateGIE = function(ps, delta, p.measures, action) {
   const.dir = c(const.dir, const.add$const.dir)
 
   opt.for.p = vapply(p.measures, function(p) {
-    obj.f = p[ps$A[, "state"]]
-    obj.f[ps$A$action != action] = 0
+    obj.f = p[ps$df[, "state"]]
+    obj.f[ps$df$action != action] = 0
     min.opt = lp(direction = "min", obj.f, const,
       const.dir, rhos)$objval
     max.opt = lp(direction = "max", obj.f, const,
