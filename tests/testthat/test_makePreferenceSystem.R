@@ -33,4 +33,8 @@ test_that("makePreferenceSystem", {
   # run the test
   expect_equal(R1, R1.val)
   expect_equal(R2, R2.val)
+
+  # check error for wrong param type
+  expect_error(makePreferenceSystem(outcomes),
+    "Wrong parameter")
 })

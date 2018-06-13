@@ -4,11 +4,14 @@
 #' @param dp [\code{dp}]\cr
 #'   Decison Problem calculated with \code{\link{makeDecisionProblem}}.
 #' @return [\code{list}] With entries:\cr
-#'   R1: Pre order on the acts.\cr
+#'   R1: Preorder on the acts.\cr
 #'   R2: Preorder on R1.
 #' @export
 makePreferenceSystem = function(dp) {
-  # FIXME: check class dp
+  if(!(is(dp, "DecisionProblem"))) {
+    stop("Wrong parameter type: Please provide an object
+      of class: 'Decision Problem'")
+  }
 
   # get data from dp object
   ordinals = dp$ordinal.information
@@ -53,26 +56,11 @@ makePreferenceSystem = function(dp) {
     cardinals[[pairs[3L]]] - cardinals[[pairs[4L]]]
   })
 
-  # pair.cardinals = lapply(as.list(diffs.cardinals), function(card.diff) {
-  #   lapply(as.list(diffs.cardinals), function(card.diff2) {
-  #     (card.diff - card.diff2) >= 0
-  #   })
-  # })
-
-  # FIXME: Here the mistake probably happened!
-  # Idea: Expand grid first, then: diff(1,3), diff(4, 2), then see if superset!
-
   # now for the ordinals, setdiff and see if diff is a superset
   diffs.ordinals = apply(R2, 1L, function(pairs) {
     isSuperset(ordinals[[pairs[1L]]], ordinals[[pairs[3L]]]) &&
     isSuperset(ordinals[[pairs[4L]]], ordinals[[pairs[2L]]])
   })
-
-  # pair.supersets = lapply(diffs.ordinals, function(set.diff) {
-  #   vlapply(diffs.ordinals, function(set.diff2) {
-  #     isSuperset(set.diff, set.diff2)
-  #   })
-  # })
 
   # combine both requirements
   pair.in.R2 = unlist(diffs.cardinals) & unlist(diffs.ordinals)
@@ -88,5 +76,7 @@ makePreferenceSystem = function(dp) {
 
 
   A = dp$df
-  list(A = A, R1 = R1, R2 = R2)
+  res = makeS3Obj("Preference System", A = A, R1 = R1, R2 = R2)
+
+  return(res)
 }
