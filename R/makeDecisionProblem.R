@@ -52,12 +52,11 @@ makeDecisionProblem = function(df, state, action, ordered = FALSE) {
   bool.vars = pref.fac.names[pref.fac.classes == "logical"]
   fac.vars = pref.fac.names[pref.fac.classes == "factor"]
   if (length(fac.vars > 0L)) {
-    n.levels = unlist(lapply(df[, fac.vars], nlevels))
+    n.levels = viapply(as.data.frame(df[, fac.vars]), nlevels)
     if (!all(n.levels == 2L)) {
       not.ok = fac.vars[which(n.levels != 2L)]
-      print(fac.vars)
       stopf("preference variables '%s' are factors but dont have
-        two levels", not.ok)
+        two levels", collapse(not.ok))
     }
     df[, fac.vars] = as.logical(df[, fac.vars])
   }
