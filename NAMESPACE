@@ -3,6 +3,7 @@
 export(calculateAAdmissibility)
 export(calculateGIE)
 export(calculatePreferenceSystemConsistency)
+export(checkPreferenceSystem)
 export(getI)
 export(getP)
 export(makeDecisionProblem)

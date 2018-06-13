@@ -10,7 +10,7 @@
 #' @param ordered [\code{logical(1)}]\cr
 #'  Shall the Decision Problem be returned numerically ordered?
 #'  Defaults to \code{FALSE}
-#' @return [\code{DecisionProblem] With entries:\cr
+#' @return [\code{DecisionProblem}] With entries:\cr
 #'   df: The original data frame\cr
 #'   cardinal.information: List of cardinal utility for each
 #'   combination of state and action.\cr

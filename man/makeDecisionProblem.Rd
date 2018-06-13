@@ -20,6 +20,14 @@ Name of the variable assigning the acts to the data frame rows.}
 Shall the Decision Problem be returned numerically ordered?
 Defaults to \code{FALSE}}
 }
+\value{
+[\code{DecisionProblem}] With entries:\cr
+  df: The original data frame\cr
+  cardinal.information: List of cardinal utility for each
+  combination of state and action.\cr
+  ordinal.information: List of ordinal utility for each
+  combination of state and action.
+}
 \description{
 Constructs a Decision Problem from a data frame.
 }

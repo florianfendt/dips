@@ -11,6 +11,7 @@
 #' @export
 calculatePreferenceSystemConsistency = function(ps) {
 
+  checkPreferenceSystem(ps)
   I.R1 = getI(ps$R1)
   P.R1 = getP(ps$R1)
 

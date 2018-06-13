@@ -22,7 +22,7 @@
 #' @export
 calculateGIE = function(ps, delta, p.measures, action) {
 
-  # FIXME: assert S3 Object
+  checkPreferenceSystem(ps)
   assertNumeric(delta, len = 1L)
   assertList(p.measures)
   assertCharacter(action, len = 1L)

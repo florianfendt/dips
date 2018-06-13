@@ -20,6 +20,8 @@
 #' @export
 calculateAAdmissibility = function(ps, action, p.measures) {
 
+  checkPreferenceSystem(ps)
+  #FIXME: arg checks
   I.R1 = getI(ps$R1)
   P.R1 = getP(ps$R1)
 
