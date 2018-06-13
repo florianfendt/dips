@@ -14,13 +14,13 @@ test_that("makeDecisionProblem", {
   expect_true(class(dp$ordinal.information) == "list")
   expect_true(class(dp$cardinal.information) == "list")
   # check sanity of inputs
-  no.num = df[, -1L]
+  no.num = outcomes[, -1L]
   expect_error(makeDecisionProblem(no.num, "nature", "job"),
     "one numeric")
   wrong.levs = cbind(outcomes, b6 = outcomes$job)
-  expect_error(makeDecisionProblem(wrong.levs, "nature", "job"), "one numeric")
+  expect_error(makeDecisionProblem(wrong.levs, "nature", "job"), "b6")
   no.state = outcomes[, -6L]
   expect_error(makeDecisionProblem(no.state, "nature", "job"), "contain")
   no.act = outcomes[, -7L]
-  expect_error(makeDecisionProblem(no.state, "nature", "job"), "contain")
+  expect_error(makeDecisionProblem(no.act, "nature", "job"), "contain")
 })
