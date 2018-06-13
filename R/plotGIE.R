@@ -3,21 +3,16 @@
 #'   Generates a plot visualizing Generalized Interval Expectation
 #'   for a set of actions from a Preference System
 #'   and a vector of granularities.
-#' @param ps [\code{dp}]\cr
-#'   Decison Problem calculated with \code{\link{makeDecisionProblem}}.
+#' @template arg_ps
 #' @param deltas [\code{numeric()}]\cr
 #'   Vector of granularity parameters. Each entry must be between 0 and 1.
-#' @param p.measures [\code{list}]\cr
-#'   List of probability measures. Each entry must have exactly
-#'   \code{n.state}.\cr
-#'   Where \code{n.state} corresponds to the number
-#'   of levels the variable \code{state} has in the \code{data.frame}
-#'   of the object \code{ps$df}.
+#' @template arg_pmeasures
 #' @param actions [\code{character}]\cr
 #'   The acts that the interval is calculated for.\cr
 #'   Must be one of the levels of the \code{action} variable
 #'   in the \code{data.frame} of the object \code{ps$df}.
 #' @return ggplot2 object.
+#' @template references
 #' @export
 
 plotGIE = function(ps, deltas, p.measures, actions) {

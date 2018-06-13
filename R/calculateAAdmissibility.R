@@ -1,21 +1,22 @@
-#' @title Construct A Preference System
+#' @title Calculate A-Admissibility
 #' @description
-#'   Constructs a Preference System from a Decision Problem.
-#' @param ps [\code{dp}]\cr
-#'   Decison Problem calculated with \code{\link{makeDecisionProblem}}.
+#'   Checks if an action is A-Admissible for a given set of
+#'   probability measures.
+#' @template arg_ps
 #' @param p.measures [\code{list}]\cr
 #'   List of probability measures. Each entry must have exactly
-#'   \code{n.state}.\cr
+#'   \code{n.state} values.\cr
 #'   Where \code{n.state} corresponds to the number
 #'   of levels the variable \code{state} has in the \code{data.frame}
 #'   of the object \code{ps$df}.
 #' @param action [\code{character}]\cr
-#'   The act that the interval is calculated for.\cr
+#'   The act for which it should be checked if it is
+#'   A-Admissible.\cr
 #'   Must be one of the levels of the \code{action} variable
 #'   in the \code{data.frame} of the object \code{ps$df}.
-#' @return [\code{list}] With entries:\cr
-#'   R1: Pre order on the acts.\cr
-#'   R2: Preorder on R1.
+#' @return [\code{numeric}]\cr
+#'   Optimal value of the objective function.
+#' @template references
 #' @export
 calculateAAdmissibility = function(ps, action, p.measures) {
 

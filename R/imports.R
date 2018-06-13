@@ -4,4 +4,5 @@
 #' @import lpSolve
 #' @import utils
 #' @import ggplot2
+#' @import methods
 NULL

@@ -12,7 +12,7 @@ Decison Problem calculated with \code{\link{makeDecisionProblem}}.}
 }
 \value{
 [\code{list}] With entries:\cr
-  R1: Pre order on the acts.\cr
+  R1: Preorder on the acts.\cr
   R2: Preorder on R1.
 }
 \description{

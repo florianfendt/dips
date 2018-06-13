@@ -8,7 +8,7 @@ calculateGIE(ps, delta, p.measures, action)
 }
 \arguments{
 \item{ps}{[\code{dp}]\cr
-Decison Problem calculated with \code{\link{makeDecisionProblem}}.}
+Preference System calculated with\code{\link{makeDecisionProblem}}.}
 
 \item{delta}{[\code{numeric(1L)}]\cr
 granularity parameter. Must be between 0 and 1}
@@ -32,4 +32,11 @@ in the \code{data.frame} of the object \code{ps$df}.}
 \description{
 Calculates the Generalized Interval Expectation for an act,
   on the basis of a consistent Preference System.
+}
+\references{
+Christoph Jansen & Georg Schollmeyer & Thomas Augustin 2018\cr
+Concepts for Decision Making under Severe
+Uncertainty with Partial Ordinal and Partial
+Cardinal Preferences.\cr
+International Journal of Approximate Reasoning (V. 98)
 }

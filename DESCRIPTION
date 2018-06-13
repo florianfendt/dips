@@ -8,6 +8,7 @@ Encoding: UTF-8
 Depends:
     R (>= 3.0.2)
 Imports:
+    methods,
     utils,
     BBmisc (>= 1.11),
     checkmate (>= 1.8.2),

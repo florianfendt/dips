@@ -10,7 +10,7 @@
 #' @param ordered [\code{logical(1)}]\cr
 #'  Shall the Decision Problem be returned numerically ordered?
 #'  Defaults to \code{FALSE}
-#' @return [\code{list}] With entries:\cr
+#' @return [\code{DecisionProblem] With entries:\cr
 #'   df: The original data frame\cr
 #'   cardinal.information: List of cardinal utility for each
 #'   combination of state and action.\cr
@@ -66,10 +66,7 @@ makeDecisionProblem = function(df, state, action, ordered = FALSE) {
   if (ordered) {
     df = df[order(df[, num.col], decreasing = TRUE), ]
   }
-  # fill list: table
-  # FIXME: make print/plot function?
-  # fill list: preference set
-  # preferences = colnames(preferences.df)
+
   ordinals.set = apply(ordinals.df, 1L, function(l) {
     pref.fac.names[as.logical(l)]
   })

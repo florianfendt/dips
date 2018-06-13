@@ -1,11 +1,13 @@
-#' @title Construct A Preference System
+#' @title Calculate Preference System Consistency
 #' @description
-#'   Constructs a Preference System from a Decision Problem.
-#' @param ps [\code{dp}]\cr
-#'   Decison Problem calculated with \code{\link{makeDecisionProblem}}.
-#' @return [\code{list}] With entries:\cr
-#'   R1: Pre order on the acts.\cr
-#'   R2: Preorder on R1.
+#'   Calculates the granularity up to which the
+#'   given Preference System is consistent.\cr
+#'   Throws an error if computation fails.
+#' @template arg_ps
+#' @return [\code{ConsistencyResult}] With entries:\cr
+#'   opt.val: Optimal value of the objective function.\cr
+#'   opt.vec: Optimal found solution vector.
+#' @template references
 #' @export
 calculatePreferenceSystemConsistency = function(ps) {
 
@@ -47,7 +49,7 @@ calculatePreferenceSystemConsistency = function(ps) {
   }  else {
     stop("Optimization failed!")
   }
-  res = makeS3Obj("ConsistenyResult", opt.val = opt.val,
+  res = makeS3Obj("ConsistencyResult", opt.val = opt.val,
     opt.vec = linear.program$solution)
   return(res)
 }

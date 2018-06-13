@@ -2,31 +2,39 @@
 % Please edit documentation in R/calculateAAdmissibility.R
 \name{calculateAAdmissibility}
 \alias{calculateAAdmissibility}
-\title{Construct A Preference System}
+\title{Calculate A-Admissibility}
 \usage{
 calculateAAdmissibility(ps, action, p.measures)
 }
 \arguments{
 \item{ps}{[\code{dp}]\cr
-Decison Problem calculated with \code{\link{makeDecisionProblem}}.}
+Preference System calculated with\code{\link{makeDecisionProblem}}.}
 
 \item{action}{[\code{character}]\cr
-The act that the interval is calculated for.\cr
+The act for which it should be checked if it is
+A-Admissible.\cr
 Must be one of the levels of the \code{action} variable
 in the \code{data.frame} of the object \code{ps$df}.}
 
 \item{p.measures}{[\code{list}]\cr
 List of probability measures. Each entry must have exactly
-\code{n.state}.\cr
+\code{n.state} values.\cr
 Where \code{n.state} corresponds to the number
 of levels the variable \code{state} has in the \code{data.frame}
 of the object \code{ps$df}.}
 }
 \value{
-[\code{list}] With entries:\cr
-  R1: Pre order on the acts.\cr
-  R2: Preorder on R1.
+[\code{numeric}]\cr
+  Optimal value of the objective function.
 }
 \description{
-Constructs a Preference System from a Decision Problem.
+Checks if an action is A-Admissible for a given set of
+  probability measures.
+}
+\references{
+Christoph Jansen & Georg Schollmeyer & Thomas Augustin 2018\cr
+Concepts for Decision Making under Severe
+Uncertainty with Partial Ordinal and Partial
+Cardinal Preferences.\cr
+International Journal of Approximate Reasoning (V. 98)
 }

@@ -2,8 +2,7 @@
 #' @description
 #'   Calculates the Generalized Interval Expectation for an act,
 #'   on the basis of a consistent Preference System.
-#' @param ps [\code{dp}]\cr
-#'   Decison Problem calculated with \code{\link{makeDecisionProblem}}.
+#' @template arg_ps
 #' @param delta [\code{numeric(1L)}]\cr
 #'   granularity parameter. Must be between 0 and 1
 #' @param p.measures [\code{list}]\cr
@@ -19,6 +18,7 @@
 #'
 #' @return [\code{numeric(2L)}]\cr
 #'   Lower and upper bounds of the interval.
+#' @template references
 #' @export
 calculateGIE = function(ps, delta, p.measures, action) {
 

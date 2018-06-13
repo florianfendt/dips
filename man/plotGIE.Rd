@@ -8,7 +8,7 @@ plotGIE(ps, deltas, p.measures, actions)
 }
 \arguments{
 \item{ps}{[\code{dp}]\cr
-Decison Problem calculated with \code{\link{makeDecisionProblem}}.}
+Preference System calculated with\code{\link{makeDecisionProblem}}.}
 
 \item{deltas}{[\code{numeric()}]\cr
 Vector of granularity parameters. Each entry must be between 0 and 1.}
@@ -32,4 +32,11 @@ ggplot2 object.
 Generates a plot visualizing Generalized Interval Expectation
   for a set of actions from a Preference System
   and a vector of granularities.
+}
+\references{
+Christoph Jansen & Georg Schollmeyer & Thomas Augustin 2018\cr
+Concepts for Decision Making under Severe
+Uncertainty with Partial Ordinal and Partial
+Cardinal Preferences.\cr
+International Journal of Approximate Reasoning (V. 98)
 }
