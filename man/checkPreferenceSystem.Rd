@@ -8,7 +8,7 @@ checkPreferenceSystem(ps)
 }
 \arguments{
 \item{ps}{[\code{dp}]\cr
-Preference System calculated with\code{\link{makeDecisionProblem}}.}
+Preference System calculated with \code{\link{makeDecisionProblem}}.}
 }
 \value{
 [\code{PreferenceSystem}]\cr

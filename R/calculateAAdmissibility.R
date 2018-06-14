@@ -19,12 +19,19 @@
 #' @template references
 #' @export
 calculateAAdmissibility = function(ps, action, p.measures) {
-
+  # Basic arg checks and obj init
   checkPreferenceSystem(ps)
-  #FIXME: arg checks
+  df = ps$df
+  # sanitize action
+  action = sanitizeAction(action)
+  checkAction(action, df$action)
+  # sanitize p.measures
+  assertList(p.measures)
+  checkProbabilityMeasures(p.measures, df$state)
+
+
   I.R1 = getI(ps$R1)
   P.R1 = getP(ps$R1)
-
   I.R2 = getI(ps$R2)
   P.R2 = getP(ps$R2)
 
@@ -36,7 +43,6 @@ calculateAAdmissibility = function(ps, action, p.measures) {
   names(const) = 1:n.f
 
   rhos = c(rep(1, n.f), rep(0, n.f))
-
   const.dir = c(rep("<=", n.f), rep(">=", n.f))
 
   const.I.R1 = rbindForLists(apply(I.R1, 1L, makeConstraint, n = n.f, type = 1L))
@@ -44,37 +50,29 @@ calculateAAdmissibility = function(ps, action, p.measures) {
   const.I.R2 = rbindForLists(apply(I.R2, 1L, makeConstraint, n = n.f, type = 3L))
   const.P.R2 = rbindForLists(apply(P.R2, 1L, makeConstraint, n = n.f, type = 4L))
 
-  # print(nrow(ps$df))
 
   const.states = vapply(p.measures, function(p) {
     const.state = p[ps$df[, "state"]]
     const.state[ps$df$action != action] = 0
     const.state
   }, numeric(nrow(ps$df)))
-  # const.states = as.vector(const.states)
-  print(const.states)
 
   acts.other = levels(ps$df[, "action"])[levels(ps$df[, "action"]) != action]
-
   const.states.other = lapply(acts.other, function(act) {
     one.state = vapply(p.measures, function(p) {
       const.state = p[ps$df[, "state"]]
       const.state[ps$df$action != act] = 0
+      const.state[ps$df$action == act] = - const.state[ps$df$action == act]
       const.state
     }, numeric(nrow(ps$df)))
     t(one.state)
   })
-  print(const.states.other)
 
   const.states.other = rbindForLists(const.states.other)
-
-  print(const.states.other)
   const.states.other = apply(const.states.other, 1L, function(const) {
     c(const + const.states, 0)
   })
-  print(const.states.other)
   const.states.other = as.data.frame(t(const.states.other))
-  print(const.states.other)
   names(const.states.other) = 1:ncol(const.states.other)
   rhos.states = rep(0, times = nrow(const.states.other))
   const.dir.states = rep(">=", times = nrow(const.states.other))
@@ -82,14 +80,13 @@ calculateAAdmissibility = function(ps, action, p.measures) {
 
   const.add = rbind(const.I.R1, const.P.R1, const.I.R2, const.P.R2,
     stringsAsFactors = FALSE)
-
-  print(const.states.other)
   const = rbind(const, const.add[1:n.f], const.states.other)
   rhos = c(rhos, const.add$rhos, rhos.states)
   const.dir = c(const.dir, const.add$const.dir, const.dir.states)
 
   linear.program = lp(direction = "max", obj.f, const,
     const.dir, rhos)
+
   opt.val = linear.program$objval
   if (opt.val > 0) {
     message(sprintf("Success: Act %s is A-admissible,

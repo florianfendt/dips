@@ -8,7 +8,7 @@ calculateAAdmissibility(ps, action, p.measures)
 }
 \arguments{
 \item{ps}{[\code{dp}]\cr
-Preference System calculated with\code{\link{makeDecisionProblem}}.}
+Preference System calculated with \code{\link{makeDecisionProblem}}.}
 
 \item{action}{[\code{character}]\cr
 The act for which it should be checked if it is

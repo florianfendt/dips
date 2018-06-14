@@ -16,7 +16,7 @@
 #' @export
 
 plotGIE = function(ps, deltas, p.measures, actions) {
-  # assertNumeric(deltas, )
+  # arg checks are all done in calculateGIE
 
   interval.acts = lapply(deltas, function(delta) {
     sapply(actions, function(action) {

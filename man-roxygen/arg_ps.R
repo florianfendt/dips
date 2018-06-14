@@ -1,2 +1,2 @@
 #' @param ps [\code{dp}]\cr
-#'   Preference System calculated with\code{\link{makeDecisionProblem}}.
+#'   Preference System calculated with \code{\link{makeDecisionProblem}}.

@@ -23,36 +23,15 @@
 calculateGIE = function(ps, delta, p.measures, action) {
 
   checkPreferenceSystem(ps)
-  assertNumeric(delta, len = 1L)
-  assertList(p.measures)
-  assertCharacter(action, len = 1L)
-
   df = ps$df
-  # sanitize p.measures
-  # check length
-  n.states = length(levels(df$state))
-  p.measures.length = unique(viapply(p.measures, length))
-  if (length(p.measures.length) != 1L) {
-    stop("Error for variable 'p.measures':
-      Measures have different lengths")
-  }
-  if (p.measures.length != n.states) {
-    stop(sprintf("Error for variable 'p.measures': Measures should all have length %i", n.states))
-  }
-  # check that elements of p.measures are true probabilities
-  p.measures.sum = vnapply(p.measures, sum)
-  if (any(p.measures.sum != 1)) {
-    not.ok = which.first(p.measures.sum != 1)
-    stop(sprintf("Error for variable 'p.measures':
-      Measure  %i does not sum to 1" , not.ok))
-  }
-
+  assertNumeric(delta, len = 1L, lower = 0, upper = 1)
   # sanitize action
-  all.actions = levels(df$action)
-  if (action %nin% all.actions) {
-    stop(sprintf("%s is not a valid action. It is not a level of the
-      action variable", action))
-  }
+  action = sanitizeAction(action)
+  checkAction(action, df$action)
+  # sanitize p.measures
+  assertList(p.measures)
+  checkProbabilityMeasures(p.measures, df$state)
+
   # check R1 is compact
   best.worst = viapply(1:2, function(x) {
     res = names(which(table(ps$R1[, x]) == nrow(df) - 1L))
@@ -124,7 +103,6 @@ makeConstraintGIE = function(indices, n, type, delta) {
   } else {
     if (type == 2L) {
       const[indices] = c(-1, 1)
-      # const[n.const] = 1
       const.dir = "<="
     } else {
       const2 = const
@@ -139,7 +117,6 @@ makeConstraintGIE = function(indices, n, type, delta) {
           const2[indices[1:2]] = c(-1, 1)
           const[indices[3:4]] = c(1, -1)
           const = const + const2
-          # const[n.const] = 1
           const.dir = "<="
         } else {
           if (type == 5L) {
@@ -161,7 +138,7 @@ makeConstraintGIE = function(indices, n, type, delta) {
   }
   const = as.data.frame(t(const))
   names(const) = 1:length(const)
-  res = cbind(const, data.frame(rhos = -delta, const.dir = const.dir, stringsAsFactors = FALSE),
-    stringsAsFactors = FALSE)
+  res = cbind(const, data.frame(rhos = -delta, const.dir = const.dir,
+    stringsAsFactors = FALSE), stringsAsFactors = FALSE)
   res
 }
