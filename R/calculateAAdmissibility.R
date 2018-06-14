@@ -29,7 +29,6 @@ calculateAAdmissibility = function(ps, action, p.measures) {
   assertList(p.measures)
   checkProbabilityMeasures(p.measures, df$state)
 
-
   I.R1 = getI(ps$R1)
   P.R1 = getP(ps$R1)
   I.R2 = getI(ps$R2)
