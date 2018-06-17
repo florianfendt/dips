@@ -12,6 +12,14 @@ checkFactorInData = function(df, var) {
     stopf("'%s' variable is not a factor!", var)
 }
 
+rbindForLists = function(x) {
+  if (!is.null(x)) {
+    x = do.call("rbind", x)
+  }
+
+  x
+}
+
 checkProbabilityMeasures = function(p.measures, var) {
   n.states = length(levels(var))
   p.measures.length = unique(viapply(p.measures, length))

@@ -55,14 +55,6 @@ calculatePreferenceSystemConsistency = function(ps) {
   return(res)
 }
 
-rbindForLists = function(x) {
-  if (!is.null(x)) {
-    x = do.call("rbind", x)
-  }
-
-  x
-}
-
 makeConstraint = function(indices, n, type) {
   const = rep(0, n)
   n.const = n

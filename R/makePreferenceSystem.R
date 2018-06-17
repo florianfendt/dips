@@ -73,7 +73,6 @@ makePreferenceSystem = function(dp) {
 
   # then duplicated entries
   # R2 = R2[!((R2$row == R2$row.1) & (R2$col == R2$col.1)), ]
-
   res = makeS3Obj("Preference System", df = dp$df, R1 = R1, R2 = R2)
 
   return(res)

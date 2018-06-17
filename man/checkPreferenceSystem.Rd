@@ -21,4 +21,7 @@ This function is more used internally to check
   that want to set up their own relations R1 and R2
   this function can be useful to check if the
   object was constructed the right way.
+  Furthermore, in case the relations \code{R1} and \code{R2}
+  are given in form of squared matrices this function will
+  convert them to matrices with two and four columns, respectively.
 }
