@@ -2,6 +2,7 @@
 
 export(calculateAAdmissibility)
 export(calculateGIE)
+export(calculateLocalAdmissibility)
 export(calculatePreferenceSystemConsistency)
 export(checkPreferenceSystem)
 export(getI)

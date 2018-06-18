@@ -49,42 +49,31 @@ calculateAAdmissibility = function(ps, action, p.measures) {
   const.I.R2 = rbindForLists(apply(I.R2, 1L, makeConstraint, n = n.f, type = 3L))
   const.P.R2 = rbindForLists(apply(P.R2, 1L, makeConstraint, n = n.f, type = 4L))
 
-
-  const.states = vapply(p.measures, function(p) {
-    const.state = p[ps$df[, "state"]]
-    const.state[ps$df$action != action] = 0
-    const.state
-  }, numeric(nrow(ps$df)))
-
-  acts.other = levels(ps$df[, "action"])[levels(ps$df[, "action"]) != action]
-  const.states.other = lapply(acts.other, function(act) {
-    one.state = vapply(p.measures, function(p) {
-      const.state = p[ps$df[, "state"]]
-      const.state[ps$df$action != act] = 0
-      const.state[ps$df$action == act] = - const.state[ps$df$action == act]
-      const.state
-    }, numeric(nrow(ps$df)))
-    t(one.state)
+  acts.other = levels(df[, "action"])
+  acts.other = acts.other[acts.other != action]
+  const.states = lapply(p.measures, function(p) {
+    const.p = p[df[, "state"]]
+    const.state = lapply(acts.other, function(act) {
+      const.p[df$action != action] = (-1) * const.p[df$action != action]
+      const.p[df$action %nin% c(act, action)] = 0
+      c(const.p, 0)
+    })
+    rbindForLists(const.state)
   })
 
-  const.states.other = rbindForLists(const.states.other)
-  const.states.other = apply(const.states.other, 1L, function(const) {
-    c(const + const.states, 0)
-  })
-  const.states.other = as.data.frame(t(const.states.other))
-  names(const.states.other) = 1:ncol(const.states.other)
-  rhos.states = rep(0, times = nrow(const.states.other))
-  const.dir.states = rep(">=", times = nrow(const.states.other))
+  const.states = as.data.frame(rbindForLists(const.states))
+  names(const.states) = 1:n.f
+  rhos.states = rep(0, times = nrow(const.states))
+  const.dir.states = rep(">=", times = nrow(const.states))
 
 
   const.add = rbind(const.I.R1, const.P.R1, const.I.R2, const.P.R2,
     stringsAsFactors = FALSE)
-  const = rbind(const, const.add[1:n.f], const.states.other)
+  const = rbind(const, const.add[, 1:n.f], const.states)
   rhos = c(rhos, const.add$rhos, rhos.states)
   const.dir = c(const.dir, const.add$const.dir, const.dir.states)
 
-  linear.program = lp(direction = "max", obj.f, const,
-    const.dir, rhos)
+  linear.program = lp(direction = "max", obj.f, const, const.dir, rhos)
 
   opt.val = linear.program$objval
   if (opt.val > 0) {
