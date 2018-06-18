@@ -9,12 +9,7 @@
 #' @param action2 [\code{character}]\cr
 #'   The second element of the tupel, where action2 is not as desireable
 #'   as action1.
-#' @param p.measures [\code{list}]\cr
-#'   List of probability measures. Each entry must have exactly
-#'   \code{n.state} values.\cr
-#'   Where \code{n.state} corresponds to the number
-#'   of levels the variable \code{state} has in the \code{data.frame}
-#'   of the object \code{ps$df}.
+#' @template arg_pmeasures
 #' @template arg_keepmodels
 #' @return [\code{numeric(2L)}]\cr
 #'   Optimal values of the set of linear programs in minimum and maximum form.
