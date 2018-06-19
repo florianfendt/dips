@@ -14,7 +14,8 @@ Imports:
     checkmate (>= 1.8.2),
     reshape,
     lpSolve,
-    ggplot2
+    ggplot2,
+    hasseDiagram
 Suggests:
     knitr,
     testthat
