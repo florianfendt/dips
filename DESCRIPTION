@@ -1,6 +1,7 @@
 Package: dips
-Title: Decision Problems in Preference Systems
-Description: Dummy description.
+Title: Decision Problems In Preference Systems
+Description: This package is concnerned with decision problems with
+  severe uncertainty...
 Authors@R: c(
     person("Florian", "Fendt", email = "flo_fendt@gmx.de", role = c("aut", "cre")))
 License: BSD_2_clause + file LICENSE
@@ -8,16 +9,18 @@ Encoding: UTF-8
 Depends:
     R (>= 3.0.2)
 Imports:
-    methods,
-    utils,
     BBmisc (>= 1.11),
     checkmate (>= 1.8.2),
-    reshape,
-    lpSolve,
     ggplot2,
-    hasseDiagram
+    hasseDiagram,
+    lpSolve,
+    methods,
+    reshape,
+    utils
 Suggests:
+    devtools,
     knitr,
     testthat
+LazyData: yes
 RoxygenNote: 6.0.1
 Version: 1.0

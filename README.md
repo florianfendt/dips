@@ -1,4 +1,4 @@
-![mlr](http://mlr-org.github.io/mlr-tutorial/img/mlrLogo_blue_141x64.png): Machine Learning in R
+<!-- ![mlr](http://mlr-org.github.io/mlr-tutorial/img/mlrLogo_blue_141x64.png): Machine Learning in R
 ==========================
 [![Build Status](https://travis-ci.org/mlr-org/mlr.svg?branch=master)](https://travis-ci.org/mlr-org/mlr)
 [![Build Status tutorial](https://travis-ci.org/mlr-org/mlr-tutorial.svg?branch=gh-pages)](https://travis-ci.org/mlr-org/mlr-tutorial)
@@ -156,3 +156,4 @@ Just make sure that you have a glance at our [**mlr** coding guidelines](https:/
 
 For everything else the maintainer Bernd Bischl can be reached via [mail](mailto:bernd_bischl@gmx.net).
 He (=me) is sometimes busy, so please use the other channels for appropriate stuff first, so you get quicker responses ;-)
+ -->
