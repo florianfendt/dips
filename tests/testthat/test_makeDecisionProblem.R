@@ -5,6 +5,8 @@ test_that("general behavior", {
 
   # setup decision problem
   dp = makeDecisionProblem(outcomes, "nature", "job")
+  #check print method
+  expect_output(print(dp), "Decision Problem")
   # check sanity of return objects
   expect_true(class(dp) == "DecisionProblem")
   df = dp$df

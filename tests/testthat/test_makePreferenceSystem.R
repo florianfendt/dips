@@ -7,6 +7,9 @@ test_that("makePreferenceSystem", {
   dp = makeDecisionProblem(outcomes, "nature", "job")
   ps = makePreferenceSystem(dp)
 
+  #check print method
+  expect_output(print(ps), "Preference System")
+
   # we need to order here for comparison later
   R1 = ps$R1[order(ps$R1[, 1L]), ]
   rownames(R1) = seq_len(nrow(R1))

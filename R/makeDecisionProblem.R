@@ -101,6 +101,7 @@ makeDecisionProblem = function(df, state, action, exclude = NULL) {
 #' @export
 print.DecisionProblem = function(x, ...) {
   df = x$df
+  cat("\nDecision Problem:\n")
   catf("Numerical variables: %s", collapse(x$cardinal.vars, ", "))
   catf("Ordinal Variables: %s", collapse(x$ordinal.vars, ", "))
   catf("Number of alternatives: %s", x$n.alternatives)
