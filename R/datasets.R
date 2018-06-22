@@ -56,9 +56,9 @@ devtools::use_data(job.offers, overwrite = TRUE)
 #' @keywords data
 #' @docType data
 costumer.ratings = data.frame(earnings = c(2000, 4000, 1000, 3000),
-  s1 = as.factor(c(1, 1, 1, 1)),
-  s2 = as.factor(c(0, 1, 0, 1)),
-  s3 = as.factor(c(0, 0, 0, 1)),
+  s1 = factor(c(1, 1, 1, 1), levels = c("0", "1")),
+  s2 = factor(c(0, 1, 0, 1)),
+  s3 = factor(c(0, 0, 0, 1)),
   product = as.factor(c("bad", "good", "bad", "good")),
   packaging = as.factor(c("budget", "budget", "premium", "premium")))
 devtools::use_data(costumer.ratings, overwrite = TRUE)

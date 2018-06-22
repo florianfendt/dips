@@ -45,9 +45,6 @@ makeDecisionProblem = function(df, state, action, exclude = NULL) {
     if (!all(exclude %in% col.names)) {
       stop("Variable names in exclude must be present in 'df'")
     }
-    print(exclude)
-    print(col.names)
-    print(col.names[col.names %nin% exclude])
     df = df[, col.names %nin% exclude]
   }
 
