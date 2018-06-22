@@ -87,7 +87,20 @@ makeDecisionProblem = function(df, state, action, ordered = FALSE, exclude = NUL
 
   res = makeS3Obj("DecisionProblem", df = df,
     ordinal.information = ordinals.set,
-    cardinal.information = num.set)
+    cardinal.information = num.set,
+    ordinal.vars = pref.fac.names,
+    cardinal.vars = num.col)
 
   return(res)
+}
+
+
+#' @export
+print.DecisionProblem = function(x, ...) {
+  df = x$df
+  catf("Numerical variables: %s", x$cardinal.vars)
+  catf("Ordinal Variables: %s", x$ordinal.vars)
+  catf("Number of alternatives: %s", nrow(df))
+  catf("Number of acts: %s", length(levels(df$action)))
+  catf("Number of states: %s", length(levels(df$state)))
 }
