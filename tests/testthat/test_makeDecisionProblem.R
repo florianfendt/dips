@@ -13,6 +13,11 @@ test_that("makeDecisionProblem", {
   expect_true(is.factor(df$action))
   expect_true(class(dp$ordinal.information) == "list")
   expect_true(class(dp$cardinal.information) == "list")
+  # check that exclude works
+  dp = makeDecisionProblem(outcomes, "nature", "job", exclude = c("b1", "b2"))
+  df.excluded = outcomes[, c("x", "b3", "b4", "nature", "job")]
+  colnames(df.excluded) = c("x", "b3", "b4", "state", "action")
+  expect_identical(dp$df, df.excluded)
   # check sanity of inputs
   no.num = outcomes[, -1L]
   expect_error(makeDecisionProblem(no.num, "nature", "job"),
@@ -23,4 +28,8 @@ test_that("makeDecisionProblem", {
   expect_error(makeDecisionProblem(no.state, "nature", "job"), "contain")
   no.act = outcomes[, -7L]
   expect_error(makeDecisionProblem(no.act, "nature", "job"), "contain")
+  # check sanity of exclude
+  expect_error(makeDecisionProblem(outcomes, "nature", "job",
+    exclude = "badvar"), "exclude must be present")
+
 })

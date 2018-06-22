@@ -10,6 +10,9 @@
 #' @param ordered [\code{logical(1)}]\cr
 #'  Shall the Decision Problem be returned numerically ordered?
 #'  Defaults to \code{FALSE}
+#' @param exclude [\code{character}]\cr
+#'   Variable names that should be excluded from the decision problem.
+#'   Default is \code{NULL}, meaning no variable is excluded.
 #' @return [\code{DecisionProblem}] With entries:\cr
 #'   df: The original data frame\cr
 #'   cardinal.information: List of cardinal utility for each
@@ -17,7 +20,7 @@
 #'   ordinal.information: List of ordinal utility for each
 #'   combination of state and action.
 #' @export
-makeDecisionProblem = function(df, state, action, ordered = FALSE) {
+makeDecisionProblem = function(df, state, action, ordered = FALSE, exclude = NULL) {
   assertDataFrame(df)
   assertCharacter(state, len = 1L)
   assertCharacter(action, len = 1L)
@@ -38,6 +41,17 @@ makeDecisionProblem = function(df, state, action, ordered = FALSE) {
   names(new.name) = action
   df = rename(df, new.name)
   levels(df$action) = 1:length(levels(df$action))
+
+  # handle excludes
+  if (!is.null(exclude)) {
+    if (!all(exclude %in% col.names)) {
+      stop("Variable names in exclude must be present in 'df'")
+    }
+    print(exclude)
+    print(col.names)
+    print(col.names[col.names %nin% exclude])
+    df = df[, col.names %nin% exclude]
+  }
 
   # sanitize variable numerical
   num.col = col.names[which.first(col.classes == "numeric")]

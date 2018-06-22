@@ -4,7 +4,7 @@
 \alias{makeDecisionProblem}
 \title{Construct Decision Problem}
 \usage{
-makeDecisionProblem(df, state, action, ordered = FALSE)
+makeDecisionProblem(df, state, action, ordered = FALSE, exclude = NULL)
 }
 \arguments{
 \item{df}{[\code{data.frame}]\cr
@@ -19,6 +19,10 @@ Name of the variable assigning the acts to the data frame rows.}
 \item{ordered}{[\code{logical(1)}]\cr
 Shall the Decision Problem be returned numerically ordered?
 Defaults to \code{FALSE}}
+
+\item{exclude}{[\code{character}]\cr
+Variable names that should be excluded from the decision problem.
+Default is \code{NULL}, meaning no variable is excluded.}
 }
 \value{
 [\code{DecisionProblem}] With entries:\cr
