@@ -28,7 +28,7 @@ test_that("makePreferenceSystem", {
       5L, 5L, 4L, 4L, 5L, 4L, 4L, 5L))
   R2.val = R2.val[order(R2.val[, 1L], R2.val[, 3L]), ]
   rownames(R2.val) = seq_len(nrow(R2.val))
-  names(R2.val) = c("1", "2", "2.1", "2.2")
+  names(R2.val) = c("1.1", "1.2", "2.1", "2.2")
 
   # run the test
   expect_equal(R1, R1.val)
@@ -37,4 +37,16 @@ test_that("makePreferenceSystem", {
   # check error for wrong param type
   expect_error(makePreferenceSystem(outcomes),
     "Wrong parameter")
+})
+
+test_that("multiple numerics work", {
+  outcomes2 = outcomes
+  outcomes2$y = 1.5 * outcomes2$x
+  dp2 = makeDecisionProblem(outcomes2, "nature", "job")
+  ps2 = makePreferenceSystem(dp2)
+  dp = makeDecisionProblem(outcomes, "nature", "job")
+  ps = makePreferenceSystem(dp)
+  # should be identical since y is only monotone trafo of x
+  expect_identical(ps2$R1, ps$R1)
+  expect_identical(ps2$R2, ps$R2)
 })

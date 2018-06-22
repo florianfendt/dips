@@ -24,7 +24,7 @@ makePreferenceSystem = function(dp) {
   # first cardinal info
   supersets.cardinals = lapply(cardinals, function(set1) {
     set.ids = lapply(cardinals, function(set2) {
-      set1 >= set2
+      all(set1 >= set2)
     })
     unlist(set.ids)
   })
@@ -43,7 +43,7 @@ makePreferenceSystem = function(dp) {
   rownames(R1) = seq_len(nrow(R1))
 
   R2 = expand.grid.df(R1, R1)[, c(3:4, 1:2)]
-  names(R2) = c("1", "2", "2.1", "2.2")
+  names(R2) = c("1.1", "1.2", "2.1", "2.2")
   # # rm duplicated entries
   R2 = R2[!((R2[, 1L] == R2[, 3L]) & (R2[, 2L] == R2[, 4L])), ]
 
@@ -52,8 +52,8 @@ makePreferenceSystem = function(dp) {
   # get differences and see if > 0
   # FIXME: Make own functions for all this crab down there.
   diffs.cardinals = apply(R2, 1L, function(pairs) {
-    cardinals[[pairs[1L]]] - cardinals[[pairs[2L]]] >=
-    cardinals[[pairs[3L]]] - cardinals[[pairs[4L]]]
+    all(cardinals[[pairs[1L]]] - cardinals[[pairs[2L]]] >=
+    cardinals[[pairs[3L]]] - cardinals[[pairs[4L]]])
   })
 
   # now for the ordinals, setdiff and see if diff is a superset

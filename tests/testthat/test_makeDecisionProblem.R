@@ -1,7 +1,7 @@
 context("makeDecisionProblem")
 
 
-test_that("makeDecisionProblem", {
+test_that("general behavior", {
 
   # setup decision problem
   dp = makeDecisionProblem(outcomes, "nature", "job")
@@ -32,4 +32,10 @@ test_that("makeDecisionProblem", {
   expect_error(makeDecisionProblem(outcomes, "nature", "job",
     exclude = "badvar"), "exclude must be present")
 
+})
+
+test_that("multiple numerics work", {
+  outcomes$y = 1.5 * outcomes$x
+  dp = makeDecisionProblem(outcomes, "nature", "job")
+  expect_true(all(dp$cardinal.vars %in% c("x", "y")))
 })

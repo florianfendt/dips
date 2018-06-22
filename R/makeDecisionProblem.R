@@ -7,9 +7,6 @@
 #'   Name of the variable assigning the states of nature.
 #' @param action [\code{character(1)}]\cr
 #'   Name of the variable assigning the acts to the data frame rows.
-#' @param ordered [\code{logical(1)}]\cr
-#'  Shall the Decision Problem be returned numerically ordered?
-#'  Defaults to \code{FALSE}
 #' @param exclude [\code{character}]\cr
 #'   Variable names that should be excluded from the decision problem.
 #'   Default is \code{NULL}, meaning no variable is excluded.
@@ -20,13 +17,14 @@
 #'   ordinal.information: List of ordinal utility for each
 #'   combination of state and action.
 #' @export
-makeDecisionProblem = function(df, state, action, ordered = FALSE, exclude = NULL) {
+makeDecisionProblem = function(df, state, action, exclude = NULL) {
   assertDataFrame(df)
   assertCharacter(state, len = 1L)
   assertCharacter(action, len = 1L)
   # get some help elements: col names, classes
   col.names = colnames(df)
   col.classes = getClasses(df)
+  n.df = nrow(df)
 
   # sanitize state column
   checkFactorInData(df, state)
@@ -54,11 +52,11 @@ makeDecisionProblem = function(df, state, action, ordered = FALSE, exclude = NUL
   }
 
   # sanitize variable numerical
-  num.col = col.names[which.first(col.classes == "numeric")]
-  if (length(num.col) == 0L)
+  num.cols = col.names[which(col.classes == "numeric")]
+  if (length(num.cols) == 0L)
     stop("'df' must at least contain one numeric variable!")
 
-  ordinals.df = df[, names(df) %nin%  c(num.col, "state", "action")]
+  ordinals.df = df[, names(df) %nin%  c(num.cols, "state", "action")]
   pref.fac.names = colnames(ordinals.df)
   pref.fac.classes = getClasses(ordinals.df)
 
@@ -75,21 +73,26 @@ makeDecisionProblem = function(df, state, action, ordered = FALSE, exclude = NUL
     df[, fac.vars] = as.logical(df[, fac.vars])
   }
 
-  # fill list: df
-  if (ordered) {
-    df = df[order(df[, num.col], decreasing = TRUE), ]
-  }
+  # # fill list: df
+  # if (ordered) {
+  #   df = df[order(df[, num.cols], decreasing = TRUE), ]
+  # }
 
   ordinals.set = apply(ordinals.df, 1L, function(l) {
     pref.fac.names[as.logical(l)]
   })
-  num.set = as.list(df[, num.col])
+  if (length(num.cols) == 1L) {
+    num.set = as.list(df[, num.cols])
+  } else {
+    num.set = split(df[, num.cols], seq_len(n.df))
+  }
 
   res = makeS3Obj("DecisionProblem", df = df,
+    n.alternatives = n.df,
     ordinal.information = ordinals.set,
     cardinal.information = num.set,
     ordinal.vars = pref.fac.names,
-    cardinal.vars = num.col)
+    cardinal.vars = num.cols)
 
   return(res)
 }
@@ -98,9 +101,9 @@ makeDecisionProblem = function(df, state, action, ordered = FALSE, exclude = NUL
 #' @export
 print.DecisionProblem = function(x, ...) {
   df = x$df
-  catf("Numerical variables: %s", x$cardinal.vars)
-  catf("Ordinal Variables: %s", x$ordinal.vars)
-  catf("Number of alternatives: %s", nrow(df))
+  catf("Numerical variables: %s", collapse(x$cardinal.vars, ", "))
+  catf("Ordinal Variables: %s", collapse(x$ordinal.vars, ", "))
+  catf("Number of alternatives: %s", x$n.alternatives)
   catf("Number of acts: %s", length(levels(df$action)))
   catf("Number of states: %s", length(levels(df$state)))
 }
