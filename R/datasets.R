@@ -47,9 +47,9 @@ devtools::use_data(job.offers, overwrite = TRUE)
 #'   \item{s1}{Logical. Star 1}
 #'   \item{s2}{Logical. Star 2}
 #'   \item{s3}{Logical. Star 3}
-#'   \item{state}{Factor with 2 levels, describing
+#'   \item{product}{Factor with 2 levels, describing
 #'   the different states of nature.}
-#'   \item{job}{Factor with 4 levels, one for each job.}
+#'   \item{packaging}{Factor with 2 levels, one for each type of packaging.}
 #' }
 #'
 #' @name costumer.ratings
@@ -59,6 +59,6 @@ costumer.ratings = data.frame(earnings = c(2000, 4000, 1000, 3000),
   s1 = c(1, 1, 1, 1),
   s2 = c(0, 1, 0, 1),
   s3 = c(0, 0, 0, 1),
-  state = as.factor(c(1, 2, 1, 2)),
-  job = as.factor(c(1, 1, 2, 2)))
+  product = as.factor(c("bad", "good", "bad", "good")),
+  packaging = as.factor(c("budget", "budget", "premium", "premium")))
 devtools::use_data(costumer.ratings, overwrite = TRUE)
