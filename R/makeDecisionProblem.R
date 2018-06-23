@@ -50,38 +50,41 @@ makeDecisionProblem = function(df, state, action, exclude = NULL) {
 
   # sanitize variable numerical
   num.cols = col.names[which(col.classes == "numeric")]
-  if (length(num.cols) == 0L)
-    stop("'df' must at least contain one numeric variable!")
-
-  ordinals.df = df[, names(df) %nin%  c(num.cols, "state", "action")]
-  pref.fac.names = colnames(ordinals.df)
-  pref.fac.classes = getClasses(ordinals.df)
-
-  # check other variables logical or 2 lev fac
-  bool.vars = pref.fac.names[pref.fac.classes == "logical"]
-  fac.vars = pref.fac.names[pref.fac.classes == "factor"]
-  if (length(fac.vars > 0L)) {
-    n.levels = viapply(as.data.frame(df[, fac.vars]), nlevels)
-    if (!all(n.levels == 2L)) {
-      not.ok = fac.vars[which(n.levels != 2L)]
-      stopf("preference variables '%s' are factors but dont have
-        two levels", collapse(not.ok))
+  if (length(num.cols) == 0L) {
+    num.cols = NULL
+    num.set = NULL
+  } else {
+    if (length(num.cols) == 1L) {
+      num.set = as.list(df[, num.cols])
+    } else {
+      num.set = split(df[, num.cols], seq_len(n.df))
     }
-    df[, fac.vars] = as.logical(df[, fac.vars])
   }
 
-  # # fill list: df
-  # if (ordered) {
-  #   df = df[order(df[, num.cols], decreasing = TRUE), ]
-  # }
-
-  ordinals.set = apply(ordinals.df, 1L, function(l) {
-    pref.fac.names[as.logical(l)]
-  })
-  if (length(num.cols) == 1L) {
-    num.set = as.list(df[, num.cols])
+  pref.fac.names = colnames(df)[colnames(df) %nin%  c(num.cols,
+    "state", "action")]
+  if (length(pref.fac.names) == 0L) {
+    ordinals.set = NULL
+    pref.fac.names = NULL
   } else {
-    num.set = split(df[, num.cols], seq_len(n.df))
+    ordinals.df = as.data.frame(df[, pref.fac.names])
+    pref.fac.classes = getClasses(ordinals.df)
+
+    # check other variables logical or 2 lev fac
+    bool.vars = pref.fac.names[pref.fac.classes == "logical"]
+    fac.vars = pref.fac.names[pref.fac.classes == "factor"]
+    if (length(fac.vars > 0L)) {
+      n.levels = viapply(as.data.frame(df[, fac.vars]), nlevels)
+      if (!all(n.levels == 2L)) {
+        not.ok = fac.vars[which(n.levels != 2L)]
+        stopf("preference variables '%s' are factors but dont have
+          two levels", collapse(not.ok))
+      }
+      ordinals.df[, fac.vars] = as.logical(ordinals.df[, fac.vars])
+    }
+    ordinals.set = apply(ordinals.df, 1L, function(l) {
+      pref.fac.names[as.logical(l)]
+    })
   }
 
   res = makeS3Obj("DecisionProblem", df = df,

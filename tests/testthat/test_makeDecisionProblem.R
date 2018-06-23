@@ -21,9 +21,6 @@ test_that("general behavior", {
   colnames(df.excluded) = c("x", "b3", "b4", "state", "action")
   expect_identical(dp$df, df.excluded)
   # check sanity of inputs
-  no.num = outcomes[, -1L]
-  expect_error(makeDecisionProblem(no.num, "nature", "job"),
-    "one numeric")
   wrong.levs = cbind(outcomes, b6 = outcomes$job)
   expect_error(makeDecisionProblem(wrong.levs, "nature", "job"), "b6")
   no.state = outcomes[, -6L]
@@ -36,8 +33,36 @@ test_that("general behavior", {
 
 })
 
-test_that("multiple numerics work", {
+test_that("numerics work for different numbers of variables", {
+  # Check it works for 2 numerics
   outcomes$y = 1.5 * outcomes$x
   dp = makeDecisionProblem(outcomes, "nature", "job")
   expect_true(all(dp$cardinal.vars %in% c("x", "y")))
+
+  # Check it works for 0 numerics
+  outcomes$x = NULL
+  outcomes$y = NULL
+  dp = makeDecisionProblem(outcomes, "nature", "job")
+  expect_true(is.null(dp$cardinal.vars))
+  expect_true(is.null(dp$cardinal.information))
+})
+
+test_that("ordinals work for different numbers of variables", {
+  # Check it works for  multiple ordinals
+  dp = makeDecisionProblem(outcomes, "nature", "job")
+  expect_true(all(dp$ordinal.vars %in% c("b1", "b2", "b3", "b4")))
+
+  # Check it works for  1 ordinal
+  outcomes$b1 = NULL
+  outcomes$b2 = NULL
+  outcomes$b3 = NULL
+  dp = makeDecisionProblem(outcomes, "nature", "job")
+  expect_true(all(dp$ordinal.vars == "b4"))
+  expect_true(length(dp$ordinal.information[[1L]]) == 1L)
+
+  # Check it works for 0 ordinals
+  outcomes$b4 = NULL
+  dp = makeDecisionProblem(outcomes, "nature", "job")
+  expect_true(is.null(dp$ordinal.vars))
+  expect_true(is.null(dp$ordinal.information))
 })

@@ -20,6 +20,11 @@ rbindForLists = function(x) {
   x
 }
 
+
+makeAllTrueData = function(n.obs, n.col) {
+  as.data.frame(matrix(rep(TRUE, n.obs), ncol = n.col))
+}
+
 checkProbabilityMeasures = function(p.measures, var) {
   n.states = length(levels(var))
   p.measures.length = unique(viapply(p.measures, length))

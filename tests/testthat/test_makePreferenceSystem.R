@@ -42,7 +42,8 @@ test_that("makePreferenceSystem", {
     "Wrong parameter")
 })
 
-test_that("multiple numerics work", {
+test_that("numerics work for different numbers of variables", {
+  # multiple numerics work
   outcomes2 = outcomes
   outcomes2$y = 1.5 * outcomes2$x
   dp2 = makeDecisionProblem(outcomes2, "nature", "job")
@@ -52,4 +53,34 @@ test_that("multiple numerics work", {
   # should be identical since y is only monotone trafo of x
   expect_identical(ps2$R1, ps$R1)
   expect_identical(ps2$R2, ps$R2)
+
+  # no numerics work
+  outcomes.no = outcomes
+  outcomes.no$x = NULL
+  dp3 = makeDecisionProblem(outcomes.no, "nature", "job")
+  ps3 = makePreferenceSystem(dp3)
+  # act 1 dominates all so should be 5 times in 1st column of R1
+  expect_true(nrow(ps3$R1[ps3$R1[, 1L] == 1L, ]) == 5L)
+
+})
+
+test_that("ordinals work for different numbers of variables", {
+
+  # Check it works for 1 ordinal
+  outcomes.ord = outcomes
+  outcomes.ord$b1 = NULL
+  outcomes.ord$b2 = NULL
+  outcomes.ord$b3 = NULL
+  dp.ord = makeDecisionProblem(outcomes.ord, "nature", "job")
+  ps.ord = makePreferenceSystem(dp.ord)
+  # act 1 dominates all so should be 5 times in R1
+  expect_true(nrow(ps.ord$R1[ps.ord$R1[, 1L] == 1L, ]) == 5L)
+
+  # Check it works for 0 ordinals
+  outcomes.ord$b4 = NULL
+  dp.ord = makeDecisionProblem(outcomes.ord, "nature", "job")
+  ps.ord = makePreferenceSystem(dp.ord)
+  # act 1 dominates all so should be 5 times in R1
+  expect_true(nrow(ps.ord$R1[ps.ord$R1[, 1L] == 1L, ]) == 5L)
+
 })
