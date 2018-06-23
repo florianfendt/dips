@@ -69,7 +69,6 @@ makeDecisionProblem = function(df, state, action, exclude = NULL) {
   } else {
     ordinals.df = as.data.frame(df[, pref.fac.names])
     pref.fac.classes = getClasses(ordinals.df)
-
     # check other variables logical or 2 lev fac
     bool.vars = pref.fac.names[pref.fac.classes == "logical"]
     fac.vars = pref.fac.names[pref.fac.classes == "factor"]
@@ -80,7 +79,6 @@ makeDecisionProblem = function(df, state, action, exclude = NULL) {
         stopf("preference variables '%s' are factors but dont have
           two levels", collapse(not.ok))
       }
-      ordinals.df[, fac.vars] = as.logical(ordinals.df[, fac.vars])
     }
     ordinals.set = apply(ordinals.df, 1L, function(l) {
       pref.fac.names[as.logical(l)]
