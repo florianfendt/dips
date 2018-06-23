@@ -81,7 +81,7 @@ makeDecisionProblem = function(df, state, action, exclude = NULL) {
       }
     }
     ordinals.set = apply(ordinals.df, 1L, function(l) {
-      pref.fac.names[as.logical(l)]
+      pref.fac.names[l == "1"]
     })
   }
 
