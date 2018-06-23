@@ -15,7 +15,6 @@ drawHasseGraph = function(ps, ...) {
   r1.mat = matrix(rep(FALSE, times = n.levs^2), nrow = n.levs, ncol = n.levs)
   for (i in levs) {
     x = as.integer(r1[i, ])
-    print(x)
     r1.mat[x[1], x[2]] = TRUE
   }
   params = list(data = r1.mat, ...)

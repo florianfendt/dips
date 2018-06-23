@@ -41,3 +41,22 @@ test_that("customPreferenceSystem", {
   ps.bad.r1$R1$c = 1:6
   expect_error(checkPreferenceSystem(ps.bad.r1), "2 columns")
 })
+
+test_that("square matrix works", {
+  r1 = diag(5L)
+  r2 = diag(5L^2)
+  r1[1L, 2L] = 1
+  r1[1L, 3L] = 1
+  r2[2L, 3L] = 1
+  df = data.frame(action = factor(rep(1L, times = 5L)),
+    state = factor(1:5))
+  ps.manual = list(df = df, R1 = r1, R2 = r2)
+  class(ps.manual) = "PreferenceSystem"
+  ps.manual = checkPreferenceSystem(ps.manual)
+  R1.val = data.frame(c(1L, 1L), c(2L, 3L))
+  colnames(R1.val) = c("1", "2")
+  R2.val = data.frame("1.1" = 1L, "1.2" = 2L, "2.1" = 1L, "2.2" = 3L)
+  colnames(R2.val) = c("1.1", "1.2", "2.1", "2.2")
+  expect_identical(ps.manual$R1, R1.val)
+  expect_identical(ps.manual$R2, R2.val)
+})
