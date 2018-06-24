@@ -11,7 +11,9 @@ plotHasseGraph(ps, ...)
 Preference System calculated with \code{\link{makeDecisionProblem}}.}
 
 \item{...}{\cr
-additional parameters passed down to \code{igraph::plot.igraph}}
+Additional parameters passed down to \code{igraph::plot.igraph}.
+See \code{\link[igraph]{plot.igraph}} and
+\code{\link[igraph]{igraph.plotting}} for details.}
 }
 \value{
 Draws Hasse Graph
