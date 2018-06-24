@@ -4,11 +4,14 @@
 \alias{plotHasseGraph}
 \title{Plot Hasse-Graph from a Preference System}
 \usage{
-plotHasseGraph(ps, ...)
+plotHasseGraph(ps, title = "", ...)
 }
 \arguments{
 \item{ps}{[\code{dp}]\cr
 Preference System calculated with \code{\link{makeDecisionProblem}}.}
+
+\item{title}{[\code{character(1L)}]\cr
+Title for the plot. Defaults to empty string, meaning no title.}
 
 \item{...}{\cr
 Additional parameters passed down to \code{igraph::plot.igraph}.

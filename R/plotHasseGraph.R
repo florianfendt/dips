@@ -3,6 +3,8 @@
 #'   Draws a Hasse Graph for the relation \code{R1} stored in
 #'   the Preference System \code{ps}
 #' @template arg_ps
+#' @param title [\code{character(1L)}]\cr
+#'   Title for the plot. Defaults to empty string, meaning no title.
 #' @param ... \cr
 #'   Additional parameters passed down to \code{igraph::plot.igraph}.
 #'   See \code{\link[igraph]{plot.igraph}} and
@@ -10,7 +12,7 @@
 #'
 #' @return Draws Hasse Graph
 #' @export
-plotHasseGraph = function(ps, ...) {
+plotHasseGraph = function(ps, title = "", ...) {
   ps = checkPreferenceSystem(ps)
   r1 = ps$R1
   a.seq = seq_len(nrow(ps$df))
@@ -22,26 +24,35 @@ plotHasseGraph = function(ps, ...) {
   root = which(doms.tab == max(doms.tab))
   layout = igraph::layout_as_tree(gr, root = root, mode = "all")
   # prepare params
-  params = list(x = gr, layout = layout, ...)
+  params = list(x = gr, layout = layout, main = title, ...)
   # add some params to make plot nicer,
   # only if user didn't change them in ...
   if (is.null(params$vertex.label)) {
     params$vertex.label = paste("a", a.seq, sep = "")
   }
+  if (is.null(params$vertex.label.dist)) {
+    params$vertex.label.dist = 1
+  }
   if (is.null(params$vertex.label.cex)) {
     params$vertex.label.cex = 0.8
   }
+  if (is.null(params$vertex.label.color)) {
+    params$vertex.label.color = "black"
+  }
   if (is.null(params$vertex.size)) {
-    params$vertex.size = 10
+    params$vertex.size = 5
   }
   if (is.null(params$vertex.color)) {
-    params$vertex.color = "SkyBlue2"
+    params$vertex.color = "black"
   }
   if (is.null(params$edge.arrow.width)) {
     params$edge.arrow.width = 0.8
   }
   if (is.null(params$edge.arrow.size)) {
     params$edge.arrow.size = 0.5
+  }
+  if (is.null(params$edge.color)) {
+    params$edge.color = "black"
   }
   do.call(igraph::plot.igraph, params)
 }
