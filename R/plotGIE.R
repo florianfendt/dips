@@ -33,7 +33,6 @@ plotGIE = function(ps, deltas, p.measures, actions) {
   interval.acts$granularity = factor(interval.acts$granularity,
     levels(interval.acts$granularity)[order(as.numeric(levels(interval.acts$granularity)))])
 
-  print(str(interval.acts$granularity))
   int.plot = ggplot(interval.acts, aes_string("action", "value",
     # colour = "bound",
     group = "action"))

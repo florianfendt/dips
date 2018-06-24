@@ -12,7 +12,7 @@ Imports:
     BBmisc (>= 1.11),
     checkmate (>= 1.8.2),
     ggplot2,
-    hasseDiagram,
+    igraph (>= 1.1.2),
     lpSolve,
     methods,
     reshape,
