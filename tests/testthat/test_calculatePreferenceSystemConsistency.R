@@ -74,3 +74,12 @@ test_that("get P", {
   P4.indiff = getP(X4.indiff.only)
   expect_equal(nrow(P4.indiff), 0)
 })
+
+test_that("printer works", {
+  dp = makeDecisionProblem(outcomes, state = "nature",
+    action = "job")
+  ps = makePreferenceSystem(dp)
+  ps.consistency = calculatePreferenceSystemConsistency(ps)
+  expect_output(print(ps.consistency),
+    "consistent with granularity")
+})

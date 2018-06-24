@@ -105,3 +105,14 @@ getP = function(x) {
   }
   x
 }
+
+#' @export
+print.ConsistencyResult = function(x, ...) {
+  if (x$opt.val > 0) {
+    catf("PreferenceSystem is consistent with granularity
+      up to: %f", x$opt.val)
+  } else {
+    catf("PreferenceSystem is not consistent, optimal value
+      is not positive: %f", x$opt.val)
+  }
+}
