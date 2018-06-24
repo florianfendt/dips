@@ -40,8 +40,8 @@ devtools::use_data(job.offers, overwrite = TRUE)
 #' Contains the data for a decision problem that was
 #' used as an example in the Master Thesis that
 #' was written about this package.\cr
-#' Each row corresponds to one of the 4 alternatives.
-#' @format A data frame with 4 rows and 5 variables:
+#' Each row corresponds to one of the 6 alternatives.
+#' @format A data frame with 6 rows and 5 variables:
 #' \describe{
 #'   \item{earnings}{Expected gains}
 #'   \item{s1}{Logical. Star 1}
@@ -55,10 +55,11 @@ devtools::use_data(job.offers, overwrite = TRUE)
 #' @name costumer.ratings
 #' @keywords data
 #' @docType data
-costumer.ratings = data.frame(earnings = c(2000, 4000, 1000, 3000),
-  s1 = factor(c(1, 1, 1, 1), levels = c("0", "1")),
-  s2 = factor(c(0, 1, 0, 1)),
-  s3 = factor(c(0, 0, 0, 1)),
-  product = as.factor(c("bad", "good", "bad", "good")),
-  packaging = as.factor(c("budget", "budget", "premium", "premium")))
+costumer.ratings = data.frame(earnings = c(2000, 4000, 4000,1000, 3000, 4000),
+  s1 = factor(c(1, 1, 1, 1, 1, 1), levels = c("0", "1")),
+  s2 = factor(c(0, 1, 1, 0, 1, 1)),
+  s3 = factor(c(0, 0, 0, 0, 1, 1)),
+  product = as.factor(c("bad", "good", "very good", "bad", "good", "very good")),
+  packaging = as.factor(c("budget", "budget", "budget", "premium", "premium",
+    "premium")))
 devtools::use_data(costumer.ratings, overwrite = TRUE)

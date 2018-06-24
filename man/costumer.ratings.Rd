@@ -4,7 +4,7 @@
 \name{costumer.ratings}
 \alias{costumer.ratings}
 \title{Costumer Ratings.}
-\format{A data frame with 4 rows and 5 variables:
+\format{A data frame with 6 rows and 5 variables:
 \describe{
   \item{earnings}{Expected gains}
   \item{s1}{Logical. Star 1}
@@ -21,6 +21,6 @@ costumer.ratings
 Contains the data for a decision problem that was
 used as an example in the Master Thesis that
 was written about this package.\cr
-Each row corresponds to one of the 4 alternatives.
+Each row corresponds to one of the 6 alternatives.
 }
 \keyword{data}
