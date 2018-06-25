@@ -32,12 +32,16 @@ plotHasseGraph = function(ps, title = "", circular = TRUE, ...) {
   uncomparables = which(rownames(df) %nin% unlist(r1))
   # subsequently find sugraphs so they get their own tree
   roots = integer()
+  i = 1L
   while (nrow(r1) > 0L) {
     doms.tab = table(r1[, 1L])
     root = names(doms.tab)[which(doms.tab == max(doms.tab))]
+    if (i == 1L)
+      root = root[1L]
     dominated = r1[r1[, 1L] %in% root, 2L]
     r1 = r1[r1[, 1L] %nin% c(root, dominated), ]
     roots = c(roots, root)
+    i = i + 1L
   }
   roots = c(roots, uncomparables)
   layout = igraph::layout_as_tree(gr, root = roots, mode = "all",

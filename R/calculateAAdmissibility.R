@@ -76,7 +76,7 @@ calculateAAdmissibility = function(ps, action, p.measures) {
       The objective function is positive: %f", action, opt.val))
   }  else {
     message(sprintf("Act %s is not A-admissible,
-      The objective function is negative: %f", action, opt.val))
+      The objective function is not strictly positive: %f", action, opt.val))
   }
   return(opt.val)
 }
