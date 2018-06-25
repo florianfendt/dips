@@ -6,7 +6,9 @@
 #' @param title [\code{character(1L)}]\cr
 #'   Title for the plot. Defaults to empty string, meaning no title.
 #' @param circular [\code{logical(1L)}]\cr
-#'   Should the graph be plotted in circular mode. Defaults to \code{FALSE}.
+#'   Should the graph be plotted in circular mode. Defaults to \code{TRUE},
+#'   since this, most of the time, gives the better visualization for
+#'   relations that are not complete.
 #' @param ... \cr
 #'   Additional parameters passed down to \code{igraph::plot.igraph}.
 #'   See \code{\link[igraph]{plot.igraph}} and
@@ -14,7 +16,7 @@
 #'
 #' @return Draws Hasse Graph
 #' @export
-plotHasseGraph = function(ps, title = "", circular = FALSE, ...) {
+plotHasseGraph = function(ps, title = "", circular = TRUE, ...) {
   # param checks
   ps = checkPreferenceSystem(ps)
   assertCharacter(title, len = 1L)
@@ -33,8 +35,9 @@ plotHasseGraph = function(ps, title = "", circular = FALSE, ...) {
   while (nrow(r1) > 0L) {
     doms.tab = table(r1[, 1L])
     root = names(doms.tab)[which(doms.tab == max(doms.tab))]
+    dominated = r1[r1[, 1L] %in% root, 2L]
+    r1 = r1[r1[, 1L] %nin% c(root, dominated), ]
     roots = c(roots, root)
-    r1 = r1[r1[, 1L] != root, ]
   }
   roots = c(roots, uncomparables)
   layout = igraph::layout_as_tree(gr, root = roots, mode = "all",
