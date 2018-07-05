@@ -15,6 +15,7 @@ Imports:
     igraph (>= 1.1.2),
     lpSolve,
     methods,
+    rcdd,
     reshape,
     utils
 Suggests:

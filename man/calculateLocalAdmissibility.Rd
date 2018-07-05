@@ -18,12 +18,9 @@ The act that is preferred over action2.}
 The second element of the tupel, where action2 is not as desireable
 as action1.}
 
-\item{p.measures}{[\code{list}]\cr
-List of probability measures. Each entry must have exactly
-\code{n.state}.\cr
-Where \code{n.state} corresponds to the number
-of levels the variable \code{state} has in the \code{data.frame}
-of the object \code{ps$df}.}
+\item{p.measures}{[\code{matrix}]\cr
+Matrix of probability vectors. Each row corresponds
+to one probability vector.}
 
 \item{keep.models}{[\code{logical(1L)}]\cr
 Should all linear programs (e.g.: \code{\link{lp.object}})

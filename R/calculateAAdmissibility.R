@@ -21,7 +21,6 @@ calculateAAdmissibility = function(ps, action, p.measures) {
   action = sanitizeAction(action)
   checkAction(action, df$action)
   # sanitize p.measures
-  assertList(p.measures)
   checkProbabilityMeasures(p.measures, df$state)
 
   I.R1 = getI(ps$R1)
@@ -46,7 +45,7 @@ calculateAAdmissibility = function(ps, action, p.measures) {
 
   acts.other = levels(df[, "action"])
   acts.other = acts.other[acts.other != action]
-  const.states = lapply(p.measures, function(p) {
+  const.states = lapply(as.data.frame(t(p.measures)), function(p) {
     const.p = p[df[, "state"]]
     const.state = lapply(acts.other, function(act) {
       const.p[df$action != action] = (-1) * const.p[df$action != action]
@@ -55,7 +54,6 @@ calculateAAdmissibility = function(ps, action, p.measures) {
     })
     rbindForLists(const.state)
   })
-
   const.states = as.data.frame(rbindForLists(const.states))
   names(const.states) = 1:n.f
   rhos.states = rep(0, times = nrow(const.states))

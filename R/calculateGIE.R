@@ -5,12 +5,7 @@
 #' @template arg_ps
 #' @param delta [\code{numeric(1L)}]\cr
 #'   granularity parameter. Must be between 0 and 1
-#' @param p.measures [\code{list}]\cr
-#'   List of probability measures. Each entry must have exactly
-#'   \code{n.state}.\cr
-#'   Where \code{n.state} corresponds to the number
-#'   of levels the variable \code{state} has in the \code{data.frame}
-#'   of the object \code{ps$df}.
+#' @template arg_pmeasures
 #' @param action [\code{character}]\cr
 #'   The act that the interval is calculated for.\cr
 #'   Must be one of the levels of the \code{action} variable
@@ -29,7 +24,6 @@ calculateGIE = function(ps, delta, p.measures, action) {
   action = sanitizeAction(action)
   checkAction(action, df$action)
   # sanitize p.measures
-  assertList(p.measures)
   checkProbabilityMeasures(p.measures, df$state)
 
   # check R1 is compact
@@ -75,7 +69,8 @@ calculateGIE = function(ps, delta, p.measures, action) {
   rhos = c(rhos, const.add$rhos)
   const.dir = c(const.dir, const.add$const.dir)
 
-  opt.for.p = vapply(p.measures, function(p) {
+  # get extreme points of prob.model
+  opt.for.p = vapply(as.data.frame(t(p.measures)), function(p) {
     obj.f = p[ps$df[, "state"]]
     obj.f[ps$df$action != action] = 0
     min.opt = lp(direction = "min", obj.f, const,

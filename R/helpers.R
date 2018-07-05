@@ -27,21 +27,18 @@ makeAllTrueData = function(n.obs, n.col) {
 
 checkProbabilityMeasures = function(p.measures, var) {
   n.states = length(levels(var))
-  p.measures.length = unique(viapply(p.measures, length))
+  p.measures.length = ncol(p.measures)
   # check length
-  if (length(p.measures.length) != 1L) {
-    stop("Error for variable 'p.measures':
-      Measures have different lengths")
-  }
   if (p.measures.length != n.states) {
-    stop(sprintf("Error for variable 'p.measures': Measures should all have length %i", n.states))
+    stop(sprintf("Error for variable 'p.measures': Measures should
+      have length %i", n.states))
   }
   # check that elements of p.measures are true probabilities
-  p.measures.sum = vnapply(p.measures, sum)
+  p.measures.sum = apply(p.measures, 1L, sum)
   if (any(p.measures.sum != 1)) {
-    not.ok = which.first(p.measures.sum != 1)
+    not.ok = which(p.measures.sum != 1)
     stop(sprintf("Error for variable 'p.measures':
-      Measure  %i does not sum to 1" , not.ok))
+      Measure(s)  %s do not sum to 1" , collapse(not.ok)))
   }
 }
 
@@ -62,4 +59,38 @@ checkAction = function(action, var) {
       action variable", action))
   }
 }
+
+
+
+
+# checkProbModel = function(prob.model) {
+#   # check that consts are missing in pairs
+#   d = prob.model$d
+#   consts = prob.model[names(prob.model) != "d"]
+#   given.consts = names(consts)
+#   ins.consts = c("a.in", "b.in")
+#   ins.given =  ins.consts %in% given.consts
+
+#   if (any(ins.given)) {
+#     if (!all(ins.given)) {
+#       stop(sprintf("Please provide either both or none
+#         of the list elements in %s", collapse(ins.consts))
+#     }
+#   }
+#   eqs.consts = c("a.in", "b.in")
+#   eqs.given = eqs.consts %in% given.consts
+#   if (any(eqs.given)) {
+#     if (!all(eqs.given)) {
+#       stop(sprintf("Please provide either both or none
+#         of the list elements in %s", collapse(eqs.consts))
+#     }
+#   }
+
+#   # consts.mats = consts[given.consts %in% c("a.in", "a.eq")]
+#   # consts.mats.n = unlist(lapply(consts.mats, ncol)
+#   # consts.mats = list()
+# }
+
+
+
 

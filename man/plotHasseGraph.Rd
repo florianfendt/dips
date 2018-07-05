@@ -4,7 +4,7 @@
 \alias{plotHasseGraph}
 \title{Plot Hasse-Graph from a Preference System}
 \usage{
-plotHasseGraph(ps, title = "", circular = FALSE, ...)
+plotHasseGraph(ps, title = "", circular = TRUE, ...)
 }
 \arguments{
 \item{ps}{[\code{dp}]\cr

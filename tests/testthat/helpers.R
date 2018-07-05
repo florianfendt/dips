@@ -39,6 +39,8 @@ act1.dom.simple = data.frame(
   job = factor(c(rep(1, 2), rep(2, 2))))
 
 
-p.measures.2 = list(c(1,0), c(0.5, 0.5))
-p.measures.4 = list(c(1, 0, 0, 0), c(0.5, 0.5, 0, 0),
-  c(1/3, 1/3, 1/3, 0), rep(0.25, times = 4L))
+p.measures.2 = matrix(c(1,0, 0.5, 0.5), ncol = 2L, byrow = TRUE)
+p.measures.4 = matrix(c(1, 0, 0, 0, 0.5, 0.5, 0, 0,
+  1/3, 1/3, 1/3, 0, rep(0.25, times = 4L)), ncol = 4L, byrow = TRUE)
+bad.measures.l = matrix(c(0.5, 0.5, 0.5), ncol = 3L)
+bad.measures.s = matrix(c(0.5, 0.6), ncol = 2L)

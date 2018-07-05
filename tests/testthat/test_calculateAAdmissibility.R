@@ -19,13 +19,12 @@ test_that("calculateAAdmissibility", {
 
 test_that("check error messages", {
   # check error messages for infeasible probability measures
-  bad.measures = list(c(0.5, 0.5, 0.5))
-  expect_error(calculateAAdmissibility(ps, action = "1", bad.measures),
+
+  expect_error(calculateAAdmissibility(ps, action = "1", bad.measures.l),
     "length")
-  bad.measures = list(c(0.5, 0.5), c(0.8, 0.3))
-  expect_error(calculateAAdmissibility(ps, bad.measures, action = "1"),
+  expect_error(calculateAAdmissibility(ps, bad.measures.s, action = "1"),
     "sum to 1")
   # check sanity of action variable
-  expect_error(calculateAAdmissibility(ps, p.measures,
+  expect_error(calculateAAdmissibility(ps, p.measures.2,
     action = "bad action"), "not a valid action")
 })

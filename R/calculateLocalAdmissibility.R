@@ -27,7 +27,6 @@ calculateLocalAdmissibility = function(ps, action1, action2, p.measures,
   action2 = sanitizeAction(action2)
   checkAction(action2, df$action)
   # sanitize p.measures
-  assertList(p.measures)
   checkProbabilityMeasures(p.measures, df$state)
 
   # Const such that 0 >= u <= 1
@@ -61,8 +60,9 @@ calculateLocalAdmissibility = function(ps, action1, action2, p.measures,
   const = rbind(const, const.pref)
   rhos = c(rhos, rhos.pref)
   const.dir = c(const.dir, const.dir.pref)
+
   # Do the actual optimization for every element in p.measures
-  opt.for.p = lapply(p.measures, function(p) {
+  opt.for.p = lapply(as.data.frame(t(p.measures)), function(p) {
     # setup obj function
     obj.f = p[df[, "state"]]
     obj.f[df$action %nin% c(action1, action2)] = 0
@@ -71,7 +71,7 @@ calculateLocalAdmissibility = function(ps, action1, action2, p.measures,
     min.opt = lp(direction = "min", obj.f, const, const.dir, rhos)# $objval
     max.opt = lp(direction = "max", obj.f, const, const.dir, rhos)# $objval
     list(mins = min.opt, maxs = max.opt)
-  })#, numeric(length = 2L))
+  })
 
   minopt = min(extractSubList(opt.for.p,c ("mins", "objval")))
   maxopt = max(extractSubList(opt.for.p,c ("maxs", "objval")))

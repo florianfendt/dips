@@ -4,11 +4,10 @@ context("calculateGIE")
 dp = makeDecisionProblem(outcomes.bound, "nature", "job")
 ps = makePreferenceSystem(dp)
 deltas = c(0, 0.01)
-p.measures = list(c(0.5, 0.5))
 
 test_that("check general behaviour", {
   gies.1 = sapply(deltas, function(delta) {
-    calculateGIE(ps, delta, p.measures, action = "1")
+    calculateGIE(ps, delta, p.measures.2, action = "1")
   })
   # check bound between 0, 1
   expect_true(all(as.numeric(gies.1) <= 1 && as.numeric(gies.1) >= 0))
@@ -26,17 +25,15 @@ test_that("check error messages", {
     "nature", "job")
   ps.unbound = makePreferenceSystem(dp.unbound)
   expect_error(calculateGIE(ps.unbound,
-    deltas[[1L]], p.measures, action = "1"),
+    deltas[[1L]], p.measures.2, action = "1"),
     "There is either no best or worse alternative")
 
   # check error messages for infeasible probability measures
-  bad.measures = list(c(0.5, 0.5, 0.5))
-  expect_error(calculateGIE(ps, deltas[[1L]], bad.measures, action = "1"),
+  expect_error(calculateGIE(ps, deltas[[1L]], bad.measures.l, action = "1"),
     "length")
-  bad.measures = list(c(0.5, 0.5), c(0.8, 0.3))
-  expect_error(calculateGIE(ps, deltas[[1L]], bad.measures, action = "1"),
+  expect_error(calculateGIE(ps, deltas[[1L]], bad.measures.s, action = "1"),
     "sum to 1")
   # check sanity of action variable
-  expect_error(calculateGIE(ps, deltas[[1L]], p.measures,
+  expect_error(calculateGIE(ps, deltas[[1L]], p.measures.2,
     action = "bad action"), "not a valid action")
 })
