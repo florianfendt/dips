@@ -13,7 +13,7 @@
 #'
 #' @return [\code{numeric(2L)}]\cr
 #'   Lower and upper bounds of the interval.
-#' @template references
+#' @template ref_jansen
 #' @export
 calculateGIE = function(ps, delta, p.measures, action) {
 

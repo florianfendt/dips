@@ -30,3 +30,6 @@ Draws Hasse Graph
 Draws a Hasse Graph for the relation \code{R1} stored in
   the Preference System \code{ps}
 }
+\references{
+\insertRef{igraph}{dips}
+}

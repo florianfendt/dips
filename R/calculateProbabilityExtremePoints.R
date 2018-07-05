@@ -14,7 +14,6 @@
 #'     for equality constraints.
 #' @return [\code{matrix}]\cr
 #'   Where each row corresponds to one probability vector.
-##' @template references
 #' @details \code{calculateProbabilityExtremePoints} uses the \code{rcdd}
 #'   package to calculate the extreme points.\cr
 #'   The unit simplex is already
@@ -23,6 +22,8 @@
 #'   See \code{\link[rcdd]{makeH}} and the
 #'   \href{https://cran.r-project.org/web/packages/rcdd/vignettes/vinny.pdf}{vignette}
 #'   of the \code{rcdd} package for further details.
+#' @references
+#'   \insertRef{rcdd}{dips}
 #' @export
 calculateProbabilityExtremePoints = function(a1, b1, a2, b2) {
   # set up unit simplex in H-representation

@@ -31,7 +31,8 @@ Calculates Extreme points for a given Probability
 }
 \details{
 \code{calculateProbabilityExtremePoints} uses the \code{rcdd}
-  package to calculate the extreme points. The unit simplex is already
+  package to calculate the extreme points.\cr
+  The unit simplex is already
   setup internally, so only the the probabilistic constraints
   need to be passed to \code{calculateProbabilityExtremePoints}.
   See \code{\link[rcdd]{makeH}} and the
@@ -39,9 +40,5 @@ Calculates Extreme points for a given Probability
   of the \code{rcdd} package for further details.
 }
 \references{
-Christoph Jansen & Georg Schollmeyer & Thomas Augustin 2018\cr
-Concepts for Decision Making under Severe
-Uncertainty with Partial Ordinal and Partial
-Cardinal Preferences.\cr
-International Journal of Approximate Reasoning (V. 98)
+\insertRef{rcdd}{dips}
 }

@@ -20,7 +20,7 @@
 #' }
 #'
 #' @name job.offers
-#' @template references
+#' @template ref_jansen
 #' @keywords data
 #' @docType data
 job.offers = data.frame(salary = c(5000, 2700, 2300, 1000, 3500, 2400,

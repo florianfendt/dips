@@ -13,7 +13,8 @@
 #'   Additional parameters passed down to \code{igraph::plot.igraph}.
 #'   See \code{\link[igraph]{plot.igraph}} and
 #'   \code{\link[igraph]{igraph.plotting}} for details.
-#'
+#' @references
+#'   \insertRef{igraph}{dips}
 #' @return Draws Hasse Graph
 #' @export
 plotHasseGraph = function(ps, title = "", circular = TRUE, ...) {

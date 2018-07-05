@@ -11,7 +11,7 @@
 #' @template arg_pmeasures
 #' @return [\code{numeric}]\cr
 #'   Optimal value of the objective function.
-#' @template references
+#' @template ref_jansen
 #' @export
 calculateAAdmissibility = function(ps, action, p.measures) {
   # Basic arg checks and obj init

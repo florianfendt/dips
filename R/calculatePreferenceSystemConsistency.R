@@ -7,7 +7,7 @@
 #' @return [\code{ConsistencyResult}] With entries:\cr
 #'   opt.val: Optimal value of the objective function.\cr
 #'   opt.vec: Optimal found solution vector.
-#' @template references
+#' @template ref_jansen
 #' @export
 calculatePreferenceSystemConsistency = function(ps) {
 

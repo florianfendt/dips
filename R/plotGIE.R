@@ -12,7 +12,7 @@
 #'   Must be one of the levels of the \code{action} variable
 #'   in the \code{data.frame} of the object \code{ps$df}.
 #' @return ggplot2 object.
-#' @template references
+#' @template ref_jansen
 #' @export
 
 plotGIE = function(ps, deltas, p.measures, actions) {

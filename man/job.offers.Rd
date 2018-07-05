@@ -28,10 +28,6 @@ Cardinal Preferences.\cr
 Each row corresponds to one of the 12 alternatives.
 }
 \references{
-Christoph Jansen & Georg Schollmeyer & Thomas Augustin 2018\cr
-Concepts for Decision Making under Severe
-Uncertainty with Partial Ordinal and Partial
-Cardinal Preferences.\cr
-International Journal of Approximate Reasoning (V. 98)
+\insertRef{mainref}{dips}
 }
 \keyword{data}

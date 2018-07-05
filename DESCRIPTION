@@ -16,12 +16,14 @@ Imports:
     lpSolve,
     methods,
     rcdd,
+    Rdpack,
     reshape,
     utils
 Suggests:
     devtools,
     knitr,
     testthat
+RdMacros: Rdpack
 LazyData: yes
 RoxygenNote: 6.0.1
 Version: 1.0

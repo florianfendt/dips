@@ -7,4 +7,5 @@
 #' @import methods
 #' @importFrom igraph graph_from_data_frame layout_as_tree plot.igraph
 #' @import rcdd
+#' @importFrom Rdpack reprompt
 NULL

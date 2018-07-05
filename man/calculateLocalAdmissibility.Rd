@@ -38,9 +38,5 @@ Checks if a tupel of actions, where action1 is preferred over action2,
   (see references).
 }
 \references{
-Christoph Jansen & Georg Schollmeyer & Thomas Augustin 2018\cr
-Concepts for Decision Making under Severe
-Uncertainty with Partial Ordinal and Partial
-Cardinal Preferences.\cr
-International Journal of Approximate Reasoning (V. 98)
+\insertRef{mainref}{dips}
 }

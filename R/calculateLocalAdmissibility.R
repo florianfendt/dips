@@ -13,7 +13,7 @@
 #' @template arg_keepmodels
 #' @return [\code{numeric(2L)}]\cr
 #'   Optimal values of the set of linear programs in minimum and maximum form.
-#' @template references
+#' @template ref_jansen
 #' @export
 calculateLocalAdmissibility = function(ps, action1, action2, p.measures,
   keep.models = FALSE) {
