@@ -14,9 +14,6 @@
   the different states of nature.}
   \item{packaging}{Factor with 2 levels, one for each type of packaging.}
 }}
-\usage{
-costumer.ratings
-}
 \description{
 Contains the data for a decision problem that was
 used as an example in the Master Thesis that

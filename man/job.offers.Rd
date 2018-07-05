@@ -16,9 +16,6 @@
   the different states of nature.}
   \item{job}{Factor with 4 levels, one for each job.}
 }}
-\usage{
-job.offers
-}
 \description{
 Contains the data for a decision problem that was
 used as an example in the paper:\cr
