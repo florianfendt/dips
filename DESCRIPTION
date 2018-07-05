@@ -20,7 +20,6 @@ Imports:
     reshape,
     utils
 Suggests:
-    devtools,
     knitr,
     testthat
 RdMacros: Rdpack
