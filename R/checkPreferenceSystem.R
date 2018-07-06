@@ -1,8 +1,8 @@
-#' @title Check if an object is a Prefrence System
+#' @title Check if an object is a Preference System
 #' @description
 #'   This function is more used internally to check
 #'   if an object has the right structure to qualify
-#'   as a Prefrence System. However, for users
+#'   as a Preference System. However, for users
 #'   that want to set up their own relations R1 and R2
 #'   this function can be useful to check if the
 #'   object was constructed the right way.
@@ -10,8 +10,8 @@
 #'   are given in form of squared matrices this function will
 #'   convert them to matrices with two and four columns, respectively.
 #' @template arg_ps
-#' @return [\code{PreferenceSystem}]\cr
-#'   If checks were succesful, the input is returned.
+#' @return [\code{PreferenceSystem}]
+#'   If checks were successful, the input is returned.
 #' @export
 checkPreferenceSystem = function(ps) {
   # check df

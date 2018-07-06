@@ -2,7 +2,7 @@
 % Please edit documentation in R/checkPreferenceSystem.R
 \name{checkPreferenceSystem}
 \alias{checkPreferenceSystem}
-\title{Check if an object is a Prefrence System}
+\title{Check if an object is a Preference System}
 \usage{
 checkPreferenceSystem(ps)
 }
@@ -11,13 +11,13 @@ checkPreferenceSystem(ps)
 Preference System calculated with \code{\link{makeDecisionProblem}}.}
 }
 \value{
-[\code{PreferenceSystem}]\cr
-  If checks were succesful, the input is returned.
+[\code{PreferenceSystem}]
+  If checks were successful, the input is returned.
 }
 \description{
 This function is more used internally to check
   if an object has the right structure to qualify
-  as a Prefrence System. However, for users
+  as a Preference System. However, for users
   that want to set up their own relations R1 and R2
   this function can be useful to check if the
   object was constructed the right way.

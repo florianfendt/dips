@@ -23,7 +23,7 @@ Must be one of the levels of the \code{action} variable
 in the \code{data.frame} of the object \code{ps$df}.}
 }
 \value{
-[\code{numeric(2L)}]\cr
+[\code{numeric(2L)}]
   Lower and upper bounds of the interval.
 }
 \description{

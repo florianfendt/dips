@@ -21,7 +21,7 @@ If vector, treated as matrix with one row.}
 for equality constraints.}
 }
 \value{
-[\code{matrix}]\cr
+[\code{matrix}]
   Where each row corresponds to one probability vector.
 }
 \description{

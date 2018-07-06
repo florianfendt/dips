@@ -11,7 +11,7 @@
 #'   Must be one of the levels of the \code{action} variable
 #'   in the \code{data.frame} of the object \code{ps$df}.
 #'
-#' @return [\code{numeric(2L)}]\cr
+#' @return [\code{numeric(2L)}]
 #'   Lower and upper bounds of the interval.
 #' @template ref_jansen
 #' @export

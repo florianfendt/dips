@@ -12,7 +12,7 @@
 #'     If vector, treated as matrix with one row.
 #' @param b2 Numerical or character right hand side vector
 #'     for equality constraints.
-#' @return [\code{matrix}]\cr
+#' @return [\code{matrix}]
 #'   Where each row corresponds to one probability vector.
 #' @details \code{calculateProbabilityExtremePoints} uses the \code{rcdd}
 #'   package to calculate the extreme points.\cr

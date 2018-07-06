@@ -11,7 +11,7 @@
 #'   as action1.
 #' @template arg_pmeasures
 #' @template arg_keepmodels
-#' @return [\code{numeric(2L)}]\cr
+#' @return [\code{numeric(2L)}]
 #'   Optimal values of the set of linear programs in minimum and maximum form.
 #' @template ref_jansen
 #' @export

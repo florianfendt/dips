@@ -9,7 +9,7 @@
 #'   Must be one of the levels of the \code{action} variable
 #'   in the \code{data.frame} of the object \code{ps$df}.
 #' @template arg_pmeasures
-#' @return [\code{numeric}]\cr
+#' @return [\code{numeric(1L)}]
 #'   Optimal value of the objective function.
 #' @template ref_jansen
 #' @export

@@ -29,7 +29,7 @@ Can be memory consuming for bigger problems,
 if set to \code{TRUE}. Defaults to \code{FALSE}.}
 }
 \value{
-[\code{numeric(2L)}]\cr
+[\code{numeric(2L)}]
   Optimal values of the set of linear programs in minimum and maximum form.
 }
 \description{

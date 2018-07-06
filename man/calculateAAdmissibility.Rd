@@ -21,7 +21,7 @@ Matrix of probability vectors. Each row corresponds
 to one probability vector.}
 }
 \value{
-[\code{numeric}]\cr
+[\code{numeric(1L)}]
   Optimal value of the objective function.
 }
 \description{
