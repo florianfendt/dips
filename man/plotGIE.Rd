@@ -7,8 +7,9 @@
 plotGIE(ps, deltas, p.measures, actions)
 }
 \arguments{
-\item{ps}{[\code{dp}]\cr
-Preference System calculated with \code{\link{makeDecisionProblem}}.}
+\item{ps}{[\code{PreferenceSystem}]\cr
+Preference System. Possibly calculated with
+\code{\link{makeDecisionProblem}}, or initialized manually}
 
 \item{deltas}{[\code{numeric()}]\cr
 Vector of granularity parameters. Each entry must be between 0 and 1.}

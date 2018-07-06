@@ -8,8 +8,9 @@ calculateLocalAdmissibility(ps, action1, action2, p.measures,
   keep.models = FALSE)
 }
 \arguments{
-\item{ps}{[\code{dp}]\cr
-Preference System calculated with \code{\link{makeDecisionProblem}}.}
+\item{ps}{[\code{PreferenceSystem}]\cr
+Preference System. Possibly calculated with
+\code{\link{makeDecisionProblem}}, or initialized manually}
 
 \item{action1}{[\code{character}]\cr
 The act that is preferred over action2.}

@@ -29,7 +29,7 @@ calculateLocalAdmissibility = function(ps, action1, action2, p.measures,
   # sanitize p.measures
   checkProbabilityMeasures(p.measures, df$state)
 
-  # Const such that 0 >= u <= 1
+  # Const such that 0 <= u <= 1
   const = as.data.frame(diag(rep(1, times = n.f)))
   const = rbind(const, const)
   rhos = c(rep(1, n.f), rep(0, n.f))

@@ -3,19 +3,27 @@
 #'   Constructs a Decision Problem from a data frame.
 #' @param df [\code{data.frame}]\cr
 #'   Data from which the Decision Problem shall be derived.
-#' @param state [\code{character(1)}]\cr
+#' @param state [\code{character(1L)}]\cr
 #'   Name of the variable assigning the states of nature.
-#' @param action [\code{character(1)}]\cr
+#' @param action [\code{character(1L)}]\cr
 #'   Name of the variable assigning the acts to the data frame rows.
 #' @param exclude [\code{character}]\cr
 #'   Variable names that should be excluded from the decision problem.
 #'   Default is \code{NULL}, meaning no variable is excluded.
 #' @return [\code{DecisionProblem}] With entries:\cr
-#'   df: The original data frame\cr
-#'   cardinal.information: List of cardinal utility for each
-#'   combination of state and action.\cr
-#'   ordinal.information: List of ordinal utility for each
-#'   combination of state and action.
+#'   \describe{
+#'     \item{df}{The original data frame. State and action variable names have
+#'     been altered to 'state' and 'action', respectively. Also their
+#'     levels are now given as integer sequence.}
+#'     \item{n.alternatives}{Number of observations in \code{df}}
+#'     \item{ordinal.information}{List of ordinal info for each
+#'       combination of state and action.}
+#'     \item{cardinal.information}{List of ordinal info for each
+#'       combination of state and action.}
+#'     \item{ordinal.vars}{Variable names that provided ordinal information.}
+#'     \item{cardinal.vars}{Variable names that were used to extract the
+#'       cardinal information.}
+#' }
 #' @export
 makeDecisionProblem = function(df, state, action, exclude = NULL) {
   assertDataFrame(df)

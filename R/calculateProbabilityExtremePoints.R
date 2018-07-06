@@ -29,6 +29,8 @@ calculateProbabilityExtremePoints = function(a1, b1, a2, b2) {
   # set up unit simplex in H-representation
   d = ncol(a1)
   h.rep = makeH(- diag(d), rep(0, d), rep(1, d), 1)
+
+  # add  inequality and equality constraints if given
   if (all(!(missing(a1) && missing (b1))))
     h.rep = addHin(a1, b1, h.rep)
   if (all(!(missing(a2) && missing (b2))))

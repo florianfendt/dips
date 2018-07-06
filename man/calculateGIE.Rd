@@ -7,8 +7,9 @@
 calculateGIE(ps, delta, p.measures, action)
 }
 \arguments{
-\item{ps}{[\code{dp}]\cr
-Preference System calculated with \code{\link{makeDecisionProblem}}.}
+\item{ps}{[\code{PreferenceSystem}]\cr
+Preference System. Possibly calculated with
+\code{\link{makeDecisionProblem}}, or initialized manually}
 
 \item{delta}{[\code{numeric(1L)}]\cr
 granularity parameter. Must be between 0 and 1}

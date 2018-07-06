@@ -7,8 +7,9 @@
 plotHasseGraph(ps, title = "", circular = TRUE, ...)
 }
 \arguments{
-\item{ps}{[\code{dp}]\cr
-Preference System calculated with \code{\link{makeDecisionProblem}}.}
+\item{ps}{[\code{PreferenceSystem}]\cr
+Preference System. Possibly calculated with
+\code{\link{makeDecisionProblem}}, or initialized manually}
 
 \item{title}{[\code{character(1L)}]\cr
 Title for the plot. Defaults to empty string, meaning no title.}

@@ -1,3 +1,4 @@
+## general helpers
 # wrapper for class()
 getClasses = function(x) {
   res = lapply(x, class)
@@ -11,7 +12,7 @@ checkFactorInData = function(df, var) {
   if (!(is.factor(df[, var])))
     stopf("'%s' variable is not a factor!", var)
 }
-
+# simple wrapper for rbind for lists
 rbindForLists = function(x) {
   if (!is.null(x)) {
     x = do.call("rbind", x)
@@ -20,11 +21,16 @@ rbindForLists = function(x) {
   x
 }
 
-
+# creates matrix with all entries set to TRUE
 makeAllTrueData = function(n.obs, n.col) {
   as.data.frame(matrix(rep(TRUE, n.obs), ncol = n.col))
 }
 
+
+
+## Helpers to check sanity of function arguments
+
+# Check that p.measures is a list of probability measures
 checkProbabilityMeasures = function(p.measures, var) {
   n.states = length(levels(var))
   p.measures.length = ncol(p.measures)
@@ -42,6 +48,7 @@ checkProbabilityMeasures = function(p.measures, var) {
   }
 }
 
+# converts action to character if passed as integer, otherwise checks if action is a character
 sanitizeAction = function(action) {
   if (testIntegerish(action, len = 1L)) {
     action = as.character(action)
@@ -51,6 +58,7 @@ sanitizeAction = function(action) {
   action
 }
 
+# check if the action is a level of var
 checkAction = function(action, var) {
   all.actions = levels(var)
   # check that action is level of var
@@ -59,38 +67,3 @@ checkAction = function(action, var) {
       action variable", action))
   }
 }
-
-
-
-
-# checkProbModel = function(prob.model) {
-#   # check that consts are missing in pairs
-#   d = prob.model$d
-#   consts = prob.model[names(prob.model) != "d"]
-#   given.consts = names(consts)
-#   ins.consts = c("a.in", "b.in")
-#   ins.given =  ins.consts %in% given.consts
-
-#   if (any(ins.given)) {
-#     if (!all(ins.given)) {
-#       stop(sprintf("Please provide either both or none
-#         of the list elements in %s", collapse(ins.consts))
-#     }
-#   }
-#   eqs.consts = c("a.in", "b.in")
-#   eqs.given = eqs.consts %in% given.consts
-#   if (any(eqs.given)) {
-#     if (!all(eqs.given)) {
-#       stop(sprintf("Please provide either both or none
-#         of the list elements in %s", collapse(eqs.consts))
-#     }
-#   }
-
-#   # consts.mats = consts[given.consts %in% c("a.in", "a.eq")]
-#   # consts.mats.n = unlist(lapply(consts.mats, ncol)
-#   # consts.mats = list()
-# }
-
-
-
-

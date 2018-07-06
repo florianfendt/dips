@@ -41,15 +41,15 @@ calculateGIE = function(ps, delta, p.measures, action) {
   I.R2 = getI(ps$R2)
   P.R2 = getP(ps$R2)
 
+  # set up constraints for 0 <=u <= 1
   n.f = nrow(ps$df)
   const = as.data.frame(diag(rep(1, times = n.f)))
   const = rbind(const, const)
   names(const) = 1:n.f
-
   rhos = c(rep(1, n.f), rep(0, n.f))
-
   const.dir = c(rep("<=", n.f), rep(">=", n.f))
 
+  # set up constraints for strict and indiff parts of R1, R2
   const.I.R1 = rbindForLists(apply(I.R1, 1L, makeConstraintGIE, n = n.f,
     type = 1L, delta = 0))
   const.P.R1 = rbindForLists(apply(P.R1, 1L, makeConstraintGIE, n = n.f,
@@ -59,17 +59,18 @@ calculateGIE = function(ps, delta, p.measures, action) {
   const.P.R2 = rbindForLists(apply(P.R2, 1L, makeConstraintGIE, n = n.f,
     type = 4L, delta = delta))
 
+  # set up constraints for best worst alternatives
   const.best =  makeConstraintGIE(best.worst[1L], n.f, 5L, 1)
   const.worst =  makeConstraintGIE(best.worst[2L], n.f, 6L, 0)
 
+  # bind all constraints together
   const.add = rbind(const.I.R1, const.P.R1, const.I.R2, const.P.R2, const.best, const.worst,
     stringsAsFactors = FALSE)
-
   const = rbind(const, const.add[1:n.f])
   rhos = c(rhos, const.add$rhos)
   const.dir = c(const.dir, const.add$const.dir)
 
-  # get extreme points of prob.model
+  # do linear optimization
   opt.for.p = vapply(as.data.frame(t(p.measures)), function(p) {
     obj.f = p[ps$df[, "state"]]
     obj.f[ps$df$action != action] = 0
@@ -80,10 +81,10 @@ calculateGIE = function(ps, delta, p.measures, action) {
     c(min.opt, max.opt)
   }, numeric(2L))
 
+  # return the calculated bounds for the interval
   c(lower.bound = min(opt.for.p[1L, ]), upper.bound = max(opt.for.p[2L, ]))
 }
 
-# FIXME: Maybe refactor together with base function
 makeConstraintGIE = function(indices, n, type, delta) {
   const = rep(0, n)
   n.const = n
