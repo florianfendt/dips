@@ -9,25 +9,29 @@
 #'   Must be one of the levels of the \code{action} variable
 #'   in the \code{data.frame} of the object \code{ps$df}.
 #' @template arg_pmeasures
+#' @template arg_showinfo
 #' @return [\code{numeric()}]
 #'   Vector of minimal optimal value of the objective functions as returned by
 #'   \code{\link{calculateLocalAdmissibility}}.
 #' @template ref_jansen
 #' @export
-calculateAMDominancy = function(ps, action, p.measures) {
+calculateAMDominancy = function(ps, action, p.measures, show.info = TRUE) {
+  assertLogical(show.info, len = 1L)
   ps = checkPreferenceSystem(ps)
   # other arg checks are done in calculateLocalAdmissibility
   df = ps$df
   other.actions = levels(df$action)[levels(df$action) != action]
   min.opts = vnapply(other.actions, function (act.other) {
     calculateLocalAdmissibility(ps, action1 = action, action2 = act.other,
-      p.measures = p.measures)$min.opt
+      p.measures = p.measures, show.info = FALSE)$min.opt
   })
   all.min.opts.positive = all(min.opts >= 0)
-  if (all.min.opts.positive) {
-    message(sprintf("Success: %s, is A-M-dominant", action))
-  } else {
-    message(sprintf("Failed: %s, is not A-M-dominant", action))
+  if (show.info) {
+    if (all.min.opts.positive) {
+      message(sprintf("Success: %s, is A-M-dominant", action))
+    } else {
+      message(sprintf("Failed: %s, is not A-M-dominant", action))
+    }
   }
   return(min.opts)
 }

@@ -9,12 +9,14 @@
 #'   Must be one of the levels of the \code{action} variable
 #'   in the \code{data.frame} of the object \code{ps$df}.
 #' @template arg_pmeasures
+#' @template arg_showinfo
 #' @return [\code{numeric(1L)}]
 #'   Optimal value of the objective function.
 #' @template ref_jansen
 #' @export
-calculateAAdmissibility = function(ps, action, p.measures) {
+calculateAAdmissibility = function(ps, action, p.measures, show.info = TRUE) {
   # Basic arg checks and obj init
+  assertLogical(show.info, len = 1L)
   checkPreferenceSystem(ps)
   df = ps$df
   # sanitize action
@@ -69,12 +71,16 @@ calculateAAdmissibility = function(ps, action, p.measures) {
   linear.program = lp(direction = "max", obj.f, const, const.dir, rhos)
 
   opt.val = linear.program$objval
-  if (opt.val > 0) {
-    message(sprintf("Success: Act %s is A-admissible,
-      The objective function is positive: %f", action, opt.val))
-  }  else {
-    message(sprintf("Act %s is not A-admissible,
-      The objective function is not strictly positive: %f", action, opt.val))
+
+  if (show.info) {
+    if (opt.val > 0) {
+      message(sprintf("Success: Act %s is A-admissible,
+        The objective function is positive: %f", action, opt.val))
+    }  else {
+      message(sprintf("Act %s is not A-admissible,
+        The objective function is not strictly positive: %f", action, opt.val))
+    }
   }
+
   return(opt.val)
 }

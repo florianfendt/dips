@@ -4,7 +4,7 @@
 \alias{calculateAAdmissibility}
 \title{Calculate A-Admissibility}
 \usage{
-calculateAAdmissibility(ps, action, p.measures)
+calculateAAdmissibility(ps, action, p.measures, show.info = TRUE)
 }
 \arguments{
 \item{ps}{[\code{PreferenceSystem}]\cr
@@ -20,6 +20,9 @@ in the \code{data.frame} of the object \code{ps$df}.}
 \item{p.measures}{[\code{matrix}]\cr
 Matrix of probability vectors. Each row corresponds
 to one probability vector.}
+
+\item{show.info}{[\code{logical(1L)}]
+Print info output to console? Defaults to \code{TRUE}.}
 }
 \value{
 [\code{numeric(1L)}]

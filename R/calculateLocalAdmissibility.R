@@ -11,13 +11,15 @@
 #'   as action1.
 #' @template arg_pmeasures
 #' @template arg_keepmodels
+#' @template arg_showinfo
 #' @return [\code{numeric(2L)}]
 #'   Optimal values of the set of linear programs in minimum and maximum form.
 #' @template ref_jansen
 #' @export
 calculateLocalAdmissibility = function(ps, action1, action2, p.measures,
-  keep.models = FALSE) {
+  keep.models = FALSE, show.info = TRUE) {
   # Basic arg checks and obj init
+  assertLogical(show.info, len = 1L)
   ps = checkPreferenceSystem(ps)
   df = ps$df
   n.f = nrow(ps$df)
@@ -76,12 +78,15 @@ calculateLocalAdmissibility = function(ps, action1, action2, p.measures,
   minopt = min(extractSubList(opt.for.p,c ("mins", "objval")))
   maxopt = max(extractSubList(opt.for.p,c ("maxs", "objval")))
 
-  if (minopt >= 0) {
-    message(sprintf("Success: (%s, %s) is in Rel-forall", action1, action2))
+  if (show.info) {
+    if (minopt >= 0) {
+      message(sprintf("Success: (%s, %s) is in Rel-forall", action1, action2))
+    }
+    if (maxopt > 0) {
+      message(sprintf("Success: (%s, %s) is in Rel-exists", action1, action2))
+    }
   }
-  if (maxopt > 0) {
-    message(sprintf("Success: (%s, %s) is in Rel-exists", action1, action2))
-  }
+
   res = list(min.opt = minopt, max.opt = maxopt)
   if (keep.models) {
     res$models = opt.for.p

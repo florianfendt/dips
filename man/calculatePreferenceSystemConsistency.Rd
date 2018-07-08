@@ -4,12 +4,15 @@
 \alias{calculatePreferenceSystemConsistency}
 \title{Calculate Preference System Consistency}
 \usage{
-calculatePreferenceSystemConsistency(ps)
+calculatePreferenceSystemConsistency(ps, show.info = TRUE)
 }
 \arguments{
 \item{ps}{[\code{PreferenceSystem}]\cr
 Preference System. Possibly calculated with
 \code{\link{makeDecisionProblem}}, or initialized manually}
+
+\item{show.info}{[\code{logical(1L)}]
+Print info output to console? Defaults to \code{TRUE}.}
 }
 \value{
 [\code{ConsistencyResult}] With entries:\cr

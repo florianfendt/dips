@@ -5,7 +5,7 @@
 \title{Calculate Local-Admissibility}
 \usage{
 calculateLocalAdmissibility(ps, action1, action2, p.measures,
-  keep.models = FALSE)
+  keep.models = FALSE, show.info = TRUE)
 }
 \arguments{
 \item{ps}{[\code{PreferenceSystem}]\cr
@@ -28,6 +28,9 @@ Should all linear programs (e.g.: \code{\link{lp.object}})
 be stored in the return object.
 Can be memory consuming for bigger problems,
 if set to \code{TRUE}. Defaults to \code{FALSE}.}
+
+\item{show.info}{[\code{logical(1L)}]
+Print info output to console? Defaults to \code{TRUE}.}
 }
 \value{
 [\code{numeric(2L)}]

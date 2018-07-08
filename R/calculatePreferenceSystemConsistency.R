@@ -4,13 +4,14 @@
 #'   given Preference System is consistent.\cr
 #'   Throws an error if computation fails.
 #' @template arg_ps
+#' @template arg_showinfo
 #' @return [\code{ConsistencyResult}] With entries:\cr
 #'   opt.val: Optimal value of the objective function.\cr
 #'   opt.vec: Optimal found solution vector.
 #' @template ref_jansen
 #' @export
-calculatePreferenceSystemConsistency = function(ps) {
-
+calculatePreferenceSystemConsistency = function(ps, show.info = TRUE) {
+  assertLogical(show.info, len = 1L)
   ps = checkPreferenceSystem(ps)
   I.R1 = getI(ps$R1)
   P.R1 = getP(ps$R1)
@@ -44,11 +45,13 @@ calculatePreferenceSystemConsistency = function(ps) {
   linear.program = lp(direction = "max", obj.f, const,
     const.dir, rhos)
   opt.val = linear.program$objval
-  if (opt.val > 0) {
-    message(sprintf("Success: The Preference System is consistent,
+  if (show.info) {
+    if (opt.val > 0) {
+      message(sprintf("Success: The Preference System is consistent,
       with granularity up to %f", opt.val))
-  }  else {
-    stop("Optimization failed!")
+    }  else {
+      message("Failure: The Preference System is not consistent.")
+    }
   }
   res = makeS3Obj("ConsistencyResult", opt.val = opt.val,
     opt.vec = linear.program$solution)
