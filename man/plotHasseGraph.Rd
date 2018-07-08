@@ -4,7 +4,7 @@
 \alias{plotHasseGraph}
 \title{Plot Hasse-Graph from a Preference System}
 \usage{
-plotHasseGraph(ps, title = "", circular = TRUE, ...)
+plotHasseGraph(ps, title = "", ...)
 }
 \arguments{
 \item{ps}{[\code{PreferenceSystem}]\cr
@@ -13,11 +13,6 @@ Preference System. Possibly calculated with
 
 \item{title}{[\code{character(1L)}]\cr
 Title for the plot. Defaults to empty string, meaning no title.}
-
-\item{circular}{[\code{logical(1L)}]\cr
-Should the graph be plotted in circular mode. Defaults to \code{TRUE},
-since this, most of the time, gives the better visualization for
-relations that are not complete.}
 
 \item{...}{\cr
 Additional parameters passed down to \code{igraph::plot.igraph}.

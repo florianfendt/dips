@@ -7,7 +7,7 @@ context("plotHasseGraph")
 test_that("plotHasseGraph", {
   dp = makeDecisionProblem(outcomes, "nature", "job")
   ps = makePreferenceSystem(dp)
-  gr = plotHasseGraph(ps, title = "dummy title", circular = TRUE)
+  gr = plotHasseGraph(ps, title = "dummy title")
   # additional params work
   # plotHasseGraph(ps, labels = letters[1:4])
 })
