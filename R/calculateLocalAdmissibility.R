@@ -18,7 +18,7 @@
 calculateLocalAdmissibility = function(ps, action1, action2, p.measures,
   keep.models = FALSE) {
   # Basic arg checks and obj init
-  checkPreferenceSystem(ps)
+  ps = checkPreferenceSystem(ps)
   df = ps$df
   n.f = nrow(ps$df)
   # sanitize actions
