@@ -2,17 +2,27 @@
 % Please edit documentation in R/plotHasseGraph.R
 \name{plotHasseGraph}
 \alias{plotHasseGraph}
-\title{Plots Hasse-Graph from a Preference System}
+\title{Plot Hasse-Graph from a Preference System}
 \usage{
-plotHasseGraph(ps, ...)
+plotHasseGraph(ps, title = "", circular = TRUE, ...)
 }
 \arguments{
 \item{ps}{[\code{PreferenceSystem}]\cr
 Preference System. Possibly calculated with
 \code{\link{makeDecisionProblem}}, or initialized manually}
 
+\item{title}{[\code{character(1L)}]\cr
+Title for the plot. Defaults to empty string, meaning no title.}
+
+\item{circular}{[\code{logical(1L)}]\cr
+Should the graph be plotted in circular mode. Defaults to \code{TRUE},
+since this, most of the time, gives the better visualization for
+relations that are not complete.}
+
 \item{...}{\cr
-additional parameters passed down to \code{hasseDiagram::hasse}}
+Additional parameters passed down to \code{igraph::plot.igraph}.
+See \code{\link[igraph]{plot.igraph}} and
+\code{\link[igraph]{igraph.plotting}} for details.}
 }
 \value{
 Draws Hasse Graph
@@ -20,4 +30,7 @@ Draws Hasse Graph
 \description{
 Draws a Hasse Graph for the relation \code{R1} stored in
   the Preference System \code{ps}
+}
+\references{
+\insertRef{igraph}{dips}
 }
