@@ -48,7 +48,7 @@ test_that("square matrix works", {
   r1[1L, 2L] = 1
   r1[1L, 3L] = 1
   r2[2L, 3L] = 1
-  df = data.frame(action = factor(rep(1L, times = 5L)),
+  df = data.frame(action = factor(c(rep(1L, times = 4L), 2L)),
     state = factor(1:5))
   ps.manual = list(df = df, R1 = r1, R2 = r2)
   class(ps.manual) = "PreferenceSystem"

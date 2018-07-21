@@ -21,13 +21,17 @@ checkPreferenceSystem = function(ps) {
     stop("no data for states and actions given")
   checkFactorInData(df, "state")
   checkFactorInData(df, "action")
+  # check that action factor has at least two levels
+  if (length(levels(df$action)) < 2L) {
+    stop("Factor 'action' must have at least two levels.")
+  }
   # check R1
   R1 = ps$R1
   if (is.null(R1))
     stop("A Preference System needs a list entry R1")
   if (all(dim(R1) == rep(n.df, 2L))) {
     if(!all(unlist(R1) %in% c(0,1) | unlist(R1) %in% c(FALSE, TRUE)))
-      stop("If a square matrix is all elements of R1 must be logical.
+      stop("If a square matrix is passed all elements of R1 must be logical.
         E.g.: 0,1 or TRUE,FALSE")
     # if user has given matrix in n x n we transform it
     R1 = apply(ps$R1 == 1L, 1L, which)
