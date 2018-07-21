@@ -64,7 +64,7 @@ calculatePreferenceSystemConsistency = function(ps, show.info = TRUE) {
 #'   Calculates indifference part from a \code{matrix} or a \code{data.frame.}
 #' @param x [\code{matrix}|\code{data.frame}]\cr
 #'   Matrix or data.frame with 2 or 4 columns to work on R1, R2 respectively.
-#' @return [\code{data.frame}]\cr
+#' @return [\code{data.frame}]
 #' @export
 getI = function(x) {
   if(class(x) == "matrix") {
@@ -98,7 +98,7 @@ getI = function(x) {
 #'   Calculates strict part from a \code{matrix} or a \code{data.frame.}
 #' @param x [\code{matrix}|\code{data.frame}]\cr
 #'   Matrix or data.frame with 2 or 4 columns to work on R1, R2 respectively.
-#' @return [\code{data.frame}]\cr
+#' @return [\code{data.frame}]
 #' @export
 getP = function(x) {
   I.x = getI(x)

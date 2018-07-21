@@ -11,7 +11,7 @@ getP(x)
 Matrix or data.frame with 2 or 4 columns to work on R1, R2 respectively.}
 }
 \value{
-[\code{data.frame}]\cr
+[\code{data.frame}]
 }
 \description{
 Calculates strict part from a \code{matrix} or a \code{data.frame.}
