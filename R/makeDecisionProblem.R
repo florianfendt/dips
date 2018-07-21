@@ -10,7 +10,7 @@
 #' @param exclude [\code{character}]\cr
 #'   Variable names that should be excluded from the decision problem.
 #'   Default is \code{NULL}, meaning no variable is excluded.
-#' @return [\code{DecisionProblem}] With entries:\cr
+#' @return [\code{DecisionProblem}] With entries:
 #'   \describe{
 #'     \item{df}{The original data frame. State and action variable names have
 #'     been altered to 'state' and 'action', respectively. Also their

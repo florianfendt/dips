@@ -5,7 +5,7 @@
 #' @template arg_ps
 #' @param title [\code{character(1L)}]\cr
 #'   Title for the plot. Defaults to empty string, meaning no title.
-#' @param ... \cr
+#' @param ... [any]\cr
 #'   Additional parameters passed down to \code{igraph::plot.igraph}.
 #'   See \code{\link[igraph]{plot.igraph}} and
 #'   \code{\link[igraph]{igraph.plotting}} for details.

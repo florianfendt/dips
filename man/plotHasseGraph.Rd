@@ -14,7 +14,7 @@ Preference System. Possibly calculated with
 \item{title}{[\code{character(1L)}]\cr
 Title for the plot. Defaults to empty string, meaning no title.}
 
-\item{...}{\cr
+\item{...}{[any]\cr
 Additional parameters passed down to \code{igraph::plot.igraph}.
 See \code{\link[igraph]{plot.igraph}} and
 \code{\link[igraph]{igraph.plotting}} for details.}
