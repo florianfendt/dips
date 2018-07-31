@@ -1,13 +1,11 @@
-context("plotHasseGraph")
+context("plotRelationGraph")
 
 # FIXME: make tests with vdiffr
 # setup decision problem, preference system and helpers
 
 
-test_that("plotHasseGraph", {
+test_that("plotRelationGraph", {
   dp = makeDecisionProblem(outcomes, "nature", "job")
   ps = makePreferenceSystem(dp)
-  gr = plotHasseGraph(ps, title = "dummy title")
-  # additional params work
-  # plotHasseGraph(ps, labels = letters[1:4])
+  gr = plotRelationGraph(ps, title = "dummy title")
 })

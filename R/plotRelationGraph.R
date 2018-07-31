@@ -1,6 +1,6 @@
-#' @title Plot Hasse-Graph from a Preference System
+#' @title Plot Graph from a Preference System
 #' @description
-#'   Draws a Hasse Graph for the relation \code{R1} stored in
+#'   Draws a Hasse like Graph for the relation \code{R1} stored in
 #'   the Preference System \code{ps}
 #' @template arg_ps
 #' @param title [\code{character(1L)}]\cr
@@ -13,7 +13,7 @@
 #'   \insertRef{igraph}{dips}
 #' @return Draws Hasse Graph
 #' @export
-plotHasseGraph = function(ps, title = "", ...) {
+plotRelationGraph = function(ps, title = "", ...) {
   # param checks
   ps = checkPreferenceSystem(ps)
   assertCharacter(title, len = 1L)
